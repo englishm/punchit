@@ -3,7 +3,7 @@ title: PunchIt
 ---
 
 .row-fluid
-  .span4
+  .span6
     %h2 Recent Projects
     %ul.nav.nav-list
       %li.nav-header OAISD
@@ -29,7 +29,7 @@ title: PunchIt
       %li 
         %a Spin Content
 
-  .span8
+  .span6
     %h2 
       Tue, 0ct 2nd
       %span.badge.badge-success 8.25
@@ -49,9 +49,11 @@ title: PunchIt
             = time
           %td
             - if time == "8am"
-              .label.span4{style: "position: absolute; height: 100px;"}
+              .label.label-success.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 4) - 6}px;"}
                 %strong OAISD - S1324  Reports
-                %p Again and again
+            - elsif time == "9am"
+              .label.label-info.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 2) - 6}px;"}
+                %strong Personal Time
         %tr
           %td &nbsp;
           %td
