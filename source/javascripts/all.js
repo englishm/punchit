@@ -1,1 +1,1 @@
-//= require_tree ./application/models
+//= require_tree ./app/models
