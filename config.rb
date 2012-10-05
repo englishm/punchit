@@ -1,3 +1,6 @@
+require "middleman-proxy"
+activate :middle_proxy, [{path: "/projects", to: "127.0.0.1:4567"}]
+
 ###
 # Compass
 ###
@@ -75,3 +78,9 @@ configure :build do
   # Or use a different image path
   # set :http_path, "/Content/images/"
 end
+# ===========================================================================
+# Original Project:   Abbot - SproutCore Build Tools
+# Copyright: ©2009 Apple Inc.
+#            portions copyright @2006-2011 Strobe Inc.
+#            and contributors
+# ===========================================================================

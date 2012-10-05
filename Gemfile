@@ -1,4 +1,7 @@
 source :rubygems
 
-gem "middleman", "~>3.0.5"
-gem 'middleman-livereload'
+gem "middleman"
+gem 'middleman-proxy', git: 'https://github.com/tinney/middleman-proxy.git'
+# gem 'middleman-livereload'
+# gem "livereload"
+# gem 'middleman-proxy'
