@@ -1,5 +1,7 @@
 require "middleman-proxy"
-activate :middle_proxy, [{path: "/projects", to: "127.0.0.1:4567"}]
+activate :middle_proxy, [
+  {path: "/projects", to: "127.0.0.1:4567"}, 
+  {path: "/customers", to: "127.0.0.1:4567"}]
 
 ###
 # Compass

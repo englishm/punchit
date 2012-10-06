@@ -5,32 +5,33 @@ title: PunchIt
 .row-fluid
   .span6
     %h2 All Projects
-    %ul.nav.nav-list.app-all-projects
+    %input.app-all-projects.span4(placeholder="Find a project" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
 
-    %h2 Recent Projects
-    %ul.nav.nav-list
-      %li.nav-header OAISD
-      %li 
-        %a Bug 
-      %li 
-        %a Customer Communication
-      %li 
-        %a Dev Tasks
-      %li 
-        %a Iteration Meetings/Planning
-      %li 
-        %a Production Deployment
-      %li.active 
-        %a S16012 - Math Editor
-      %li 
-        %a S17211 - Rubric - Creators can create rubrics 
-      %li.nav-header General
-      %li 
-        %a Lunch
-      %li 
-        %a Personal Time
-      %li 
-        %a Spin Content
+    - if false
+      %h2 Recent Projects
+      %ul.nav.nav-list
+        %li.nav-header OAISD
+        %li 
+          %a Bug 
+        %li 
+          %a Customer Communication
+        %li 
+          %a Dev Tasks
+        %li 
+          %a Iteration Meetings/Planning
+        %li 
+          %a Production Deployment
+        %li.active 
+          %a S16012 - Math Editor
+        %li 
+          %a S17211 - Rubric - Creators can create rubrics 
+        %li.nav-header General
+        %li 
+          %a Lunch
+        %li 
+          %a Personal Time
+        %li 
+          %a Spin Content
 
   .span6
     %h2 

@@ -1,4 +1,8 @@
 $ =>
   projectsCollection = new PunchIt.Collections.Projects()
-  projectsView = new PunchIt.Views.Projects(collection: projectsCollection)
+  customersCollection = new PunchIt.Collections.Customers()
+
+  allProjectsView = new PunchIt.Views.AllProjects(customers: customersCollection, projects: projectsCollection)
+
   projectsCollection.fetch()
+  customersCollection.fetch()
