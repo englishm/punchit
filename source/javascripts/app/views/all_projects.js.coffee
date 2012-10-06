@@ -4,14 +4,24 @@ namespace "PunchIt.Views", (exports) ->
       @projects.bind("reset", @refresh)
       @customers.bind("reset", @refresh)
 
-      console.log @projects
-      console.log @customers
+      @$('.app-all-projects-typeahead').bind('change', @projectPicked)
 
-    # refresh: =>
-    #   names = []
+    refresh: =>
+      #make sure both collections have loaded
+      return unless @projects.length > 0 && @customers.length > 0
 
-    #   @collection.each (project) =>
-    #     names.push project.get('name') #if project.get('active')
-    #       
-    #   $('.app-all-projects').data('source', names)
-    #   
+      @setCustomers() #TODO this should not be in this class
+
+      #load up the typeahead data
+      @$('.app-all-projects-typeahead').data('source', @projects.pluck("fullName"))
+      @$('.app-all-projects-typeahead').removeAttr('disabled')
+    
+    setCustomers: =>
+      @projects.each (project) =>
+        project.setCustomer(@customers.get(project.get('customerId')))
+
+
+    projectPicked: (event) =>
+      project = @projects.find (project) => project.get('fullName') == @$('.app-all-projects-typeahead').val()
+      projectView = new PunchIt.Views.Project(model: project)
+      @$('.app-all-project-stories').html(projectView.el)

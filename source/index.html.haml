@@ -3,9 +3,11 @@ title: PunchIt
 ---
 
 .row-fluid
-  .span6
+  #app-all-projects.span6
     %h2 All Projects
-    %input.app-all-projects.span4(placeholder="Find a project" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
+    %input.app-all-projects-typeahead.span4(disabled placeholder="Find a project" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
+
+    .app-all-project-stories
 
     - if false
       %h2 Recent Projects

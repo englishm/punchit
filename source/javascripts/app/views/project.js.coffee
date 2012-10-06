@@ -1,10 +1,13 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Project extends Backbone.View
-    tagName: 'li'
+    tagName: "ul"
+    className: "nav nav-list"
 
-    render: =>
-      $(@el).html(@template(@model.toJSON()))
-      @
+    initialize: =>
+      @model.bind("reset", @refresh)
+      @model.fetchStories()
+      $(@el).append("<li class='nav-header'>#{@model.get('fullName')}</li>")
 
-    template: (args) =>
-      _.template("<a><%= name %></a>")(args)
+    refresh: =>
+      @model.stories.each (story) =>
+        $(@el).append("<li><a>#{story.get('name')}</a></li>") unless story.completed()
