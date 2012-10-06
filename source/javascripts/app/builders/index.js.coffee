@@ -1,4 +1,4 @@
 $ =>
-  projects = new PunchIt.Collections.Projects()
-  projects.fetch()
-  console.log projects
+  projectsCollection = new PunchIt.Collections.Projects()
+  projectsView = new PunchIt.Views.Projects(collection: projectsCollection)
+  projectsCollection.fetch()
