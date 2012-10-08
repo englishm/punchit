@@ -4,41 +4,42 @@ title: PunchIt
 
 .row-fluid
   .span6
-    #app-employees
-      %h2 Employees
-      %input.app-employees-typeahead.span4(disabled placeholder="Pick yourself" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
+    .affix
+      #app-employees
+        %h2 Employees
+        %input.app-employees-typeahead.span4(disabled placeholder="Pick yourself" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
 
-    #app-all-projects
-      %h2 All Projects
-      %input.app-all-projects-typeahead.span4(disabled placeholder="Find a project" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
+      #app-all-projects
+        %h2 All Projects
+        %input.app-all-projects-typeahead.span4(disabled placeholder="Find a project" type="text" data-source='["Loading"]' data-items="6" data-provide="typeahead" style="margin: 0 auto;")
 
-      .app-all-project-stories
+        .app-all-project-stories
 
-      - if false
-        %h2 Recent Projects
-        %ul.nav.nav-list
-          %li.nav-header OAISD
-          %li 
-            %a Bug 
-          %li 
-            %a Customer Communication
-          %li 
-            %a Dev Tasks
-          %li 
-            %a Iteration Meetings/Planning
-          %li 
-            %a Production Deployment
-          %li.active 
-            %a S16012 - Math Editor
-          %li 
-            %a S17211 - Rubric - Creators can create rubrics 
-          %li.nav-header General
-          %li 
-            %a Lunch
-          %li 
-            %a Personal Time
-          %li 
-            %a Spin Content
+        - if false
+          %h2 Recent Projects
+          %ul.nav.nav-list
+            %li.nav-header OAISD
+            %li 
+              %a Bug 
+            %li 
+              %a Customer Communication
+            %li 
+              %a Dev Tasks
+            %li 
+              %a Iteration Meetings/Planning
+            %li 
+              %a Production Deployment
+            %li.active 
+              %a S16012 - Math Editor
+            %li 
+              %a S17211 - Rubric - Creators can create rubrics 
+            %li.nav-header General
+            %li 
+              %a Lunch
+            %li 
+              %a Personal Time
+            %li 
+              %a Spin Content
 
   .span6
     %h2 
