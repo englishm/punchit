@@ -24,4 +24,4 @@ namespace "PunchIt.Views", (exports) ->
     projectPicked: (event) =>
       project = @projects.find (project) => project.get('fullName') == @$('.app-all-projects-typeahead').val()
       projectView = new PunchIt.Views.Project(model: project)
-      @$('.app-all-project-stories').html(projectView.el)
+      @$('.app-all-project-stories').append(projectView.el)
