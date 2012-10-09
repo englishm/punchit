@@ -13,13 +13,13 @@ namespace "PunchIt.Views", (exports) ->
       @$('.app-stories').on("change", @storyPicked)
 
     storyPicked: (event) =>
-      story = @model.stories.get($(event.currentTarget).val())
-      $('#active-story').html("<strong>#{story.get('name')}</strong><span class='pull-right'><span class='button'><i class='icon-star'></i></span><i class='icon-globe'></i><i class='icon-fire'></i></span>")
+      PunchIt.Events.trigger("storyActivated", @model.stories.get($(event.currentTarget).val()))
+      #$('#active-story').html("<strong>#{story.get('name')}</strong><span class='pull-right'><span class='button'><i class='icon-star'></i></span><i class='icon-globe'></i><i class='icon-fire'></i></span>")
 
     populateStories: =>
       data = []
       @model.stories.each (story) =>
-        data.push(id: story.id, text: story.get('name')) if story.get('percent_done') != 100
+        data.push(id: story.id, text: story.get('name')) unless story.completed()
 
       $storiesTypeahead = @.$('.app-stories').select2(placeholder: "Search for a story for #{@model.get('fullName')}", data: data)
 

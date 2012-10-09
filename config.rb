@@ -1,5 +1,6 @@
 require "middleman-proxy"
 activate :middle_proxy, [
+  {path: "/punches", to: "127.0.0.1:4567"}, 
   {path: "/projects", to: "127.0.0.1:4567"}, 
   {path: "/customers", to: "127.0.0.1:4567"},
   {path: "/stories", to: "127.0.0.1:4567"}]

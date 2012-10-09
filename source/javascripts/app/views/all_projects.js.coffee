@@ -26,7 +26,6 @@ namespace "PunchIt.Views", (exports) ->
       @projects.each (project) =>
         project.setCustomer(@customers.get(project.get('customerId')))
 
-
     projectPicked: (event) =>
       project = @projects.get $(event.currentTarget).val()
       projectView = new PunchIt.Views.Project(model: project)
