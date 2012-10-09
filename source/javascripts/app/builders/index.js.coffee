@@ -6,3 +6,5 @@ $ =>
 
   projectsCollection.fetch()
   customersCollection.fetch()
+  
+  $('.titled').tooltip()
