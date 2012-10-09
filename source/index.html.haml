@@ -2,13 +2,28 @@
 title: PunchIt
 ---
 
+
+.row-fluid
+  .span8.offset2  
+    %p
+      #active-story.alert.alert-info
+        %strong Active Story
+        %span.pull-right
+          .btn.btn-mini.btn-inverse
+            %i.icon-star.icon-white
+
+          .btn.btn-mini.btn-inverse
+            %i.icon-globe.icon-white
+
+          .btn.btn-mini.btn-inverse
+            %i.icon-fire.icon-white
 .row-fluid
   .span6
-    #app-all-projects
-      %h2 All Projects
-      %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
-
-      .app-all-project-stories
+    %ul#app-all-projects.nav.nav-list
+      %li.nav-header All Projects
+      %li
+        %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
+      %li.app-all-project-stories
 
   .span6
     %h2 

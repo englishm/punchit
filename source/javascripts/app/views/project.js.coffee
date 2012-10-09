@@ -7,8 +7,14 @@ namespace "PunchIt.Views", (exports) ->
       $(@el).append("<li class='nav-header'>#{@model.get('fullName')}</li>")
       $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
 
-      @model.bind("reset", @populateStories)
+      @model.on("reset", @populateStories)
       @model.fetchStories()
+
+      @$('.app-stories').on("change", @storyPicked)
+
+    storyPicked: (event) =>
+      story = @model.stories.get($(event.currentTarget).val())
+      $('#active-story').html("<strong>#{story.get('name')}</strong><span class='pull-right'><span class='button'><i class='icon-star'></i></span><i class='icon-globe'></i><i class='icon-fire'></i></span>")
 
     populateStories: =>
       data = []

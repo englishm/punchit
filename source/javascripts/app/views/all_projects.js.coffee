@@ -1,14 +1,16 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.AllProjects extends Backbone.View
     initialize: ({@projects, @customers}) =>
-      @projects.bind("reset", @refresh)
-      @customers.bind("reset", @refresh)
+      @projects.on("reset", @refresh)
+      @customers.on("reset", @refresh)
 
-      @$('.app-all-projects-typeahead').bind('change', @projectPicked)
+      @$('.app-all-projects-typeahead').on('change', @projectPicked)
 
     refresh: =>
       #make sure both collections have loaded
       return unless @projects.length > 0 && @customers.length > 0
+      @projects.off("reset")
+      @customers.off("reset")
 
       #TODO this should not be in this class
       @setCustomers() 
