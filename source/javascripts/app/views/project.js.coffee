@@ -5,13 +5,15 @@ namespace "PunchIt.Views", (exports) ->
 
     initialize: =>
       $(@el).append("<li class='nav-header'>#{@model.get('fullName')}</li>")
-      $(@el).append('<li><input class="span4 app-stories" disabled placeholder="Find a story" type="text" data-source="" data-items="6" data-provide="typeahead"></li>')
+      $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
 
       @model.bind("reset", @populateStories)
       @model.fetchStories()
 
     populateStories: =>
-      $storiesTypeahead = @.$('.app-stories')
-      $storiesTypeahead.data('source', @model.stories.pluck('name'))
-      $storiesTypeahead.removeAttr('disabled')
+      data = []
+      @model.stories.each (story) =>
+        data.push(id: story.id, text: story.get('name')) if story.get('percent_done') != 100
+
+      $storiesTypeahead = @.$('.app-stories').select2(placeholder: "Search for a story for #{@model.get('fullName')}", data: data)
 
