@@ -20,7 +20,7 @@ namespace "PunchIt.Views", (exports) ->
       @projects.each (project) =>
         data.push(id: project.id, text: project.get('fullName')) if project.get('active')
 
-      @$('.app-all-projects-typeahead').select2 placeholder: "Search for a project", data: data
+      @$('.app-all-projects-typeahead').select2 width: "resolve", placeholder: "Search for a project", data: data
 
     setCustomers: =>
       @projects.each (project) =>

@@ -2,66 +2,85 @@
 title: PunchIt
 ---
 
-.row-fluid
-  .span8.offset2  
-    %p
-      #app-active-story.alert.alert-info
-        %strong Active Story
-        %span.pull-right
-          .btn.btn-mini.btn-inverse.titled(title="Pin this story" data-placement="bottom")
-            %i.icon-star.icon-white
+.navbar.navbar-fixed-top
+  .navbar-inner
+    %ul.nav
+      %li#app-date 
+        %a All Project
+      %li#app-date 
+        %a Pinned Projects
+      %li#app-date 
+        %a Recent Projects
+    %ul.nav.pull-right
+      %li#app-employees 
+        %a 
+          Employees
+          %input.app-all-employees-typeahead(type="hidden" placeholder="Pick Yourself!")
+      %li#app-date 
+        %a Date
 
-          .btn.btn-mini.btn-inverse.titled(title="Copy the URL for this story" data-placement="bottom")
-            %i.icon-globe.icon-white
 
-          .btn.btn-mini.btn-inverse.titled(title="Mark this story 100% done" data-placement="bottom")
-            %i.icon-fire.icon-white
-.row-fluid
-  .span6
-    %ul#app-all-projects.nav.nav-list
-      %li.nav-header All Projects
-      %li
-        %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
-      %li.app-all-project-stories
+.container-fluid
+  .row-fluid
+    .span8.offset2  
+      %p
+        #app-active-story.alert.alert-info
+          %strong Active Story
+          %span.pull-right
+            .btn.btn-mini.btn-inverse.titled(title="Pin this story" data-placement="bottom")
+              %i.icon-star.icon-white
 
-  .span6
-    %h2 
-      Tue, Oct 2nd
-      %span.badge.badge-success 8.25
-    .progress
-      .bar.bar-success(style="width: 10%;")
-      .bar.bar-warning(style="width: 5%;")
-      .bar.bar-danger(style="width: 5%;")
-      .bar.bar-success(style="width: 13%;")
-      .bar(style="width: 10%;")
-      .bar.bar-success(style="width: 57%;")
+            .btn.btn-mini.btn-inverse.titled(title="Copy the URL for this story" data-placement="bottom")
+              %i.icon-globe.icon-white
 
-    
-    %table.table-condensed.table
-      - %w(7am 8am 9am 10am 11am Noon 1pm 2pm 3pm 4pm 5pm 6pm 7pm).each do |time|
-        %tr
-          %td.span1
-            = time
-          %td
-            - if time == "8am"
-              .label.label-success.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 4) - 6}px;"}
-                %strong OAISD - S1324 Reports 
-            - elsif time == "9am"
-              .label.label-info.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 2) - 6}px;"}
-                %strong Personal Time
-        %tr
-          %td &nbsp;
-          %td
-        %tr
-          %td &nbsp;
-          %td
-        %tr
-          %td &nbsp;
-          %td
+            .btn.btn-mini.btn-inverse.titled(title="Mark this story 100% done" data-placement="bottom")
+              %i.icon-fire.icon-white
+  .row-fluid
+    .span6
+      %ul#app-all-projects.nav.nav-list
+        %li.nav-header All Projects
+        %li
+          %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
+        %li.app-all-project-stories
 
-    
-    - if false 
-      %table.table.table-striped.table-condensed
-        - %w(7:00 7:15 7:30 7:45 8:00 8:15 8:30 8:45 9:00 9:15 9:30 9:45 10:00 10:15 10:30 10:45 11:00 11:15 11:30 11:45 12:00 12:15 12:30 12:45 1:00 1:15 1:30 1:45 2:00 2:15 2:30 2:45 3:00 3:15 3:30 3:45 4:00 4:15 4:30 4:45 5:00 5:15 5:30 5:45).each do |time|
+    #app-punches.span6
+      %h2 
+        Tue, Oct 2nd
+        %span.badge.badge-success 8.25
+      .progress
+        .bar.bar-success(style="width: 10%;")
+        .bar.bar-warning(style="width: 5%;")
+        .bar.bar-danger(style="width: 5%;")
+        .bar.bar-success(style="width: 13%;")
+        .bar(style="width: 10%;")
+        .bar.bar-success(style="width: 57%;")
+
+      
+      %table.table-condensed.table
+        - %w(7am 8am 9am 10am 11am Noon 1pm 2pm 3pm 4pm 5pm 6pm 7pm).each do |time|
           %tr
-            %td= time
+            %td.span1
+              = time
+            %td
+              - if time == "8am"
+                .label.label-success.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 4) - 6}px;"}
+                  %strong OAISD - S1324 Reports 
+              - elsif time == "9am"
+                .label.label-info.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 2) - 6}px;"}
+                  %strong Personal Time
+          %tr
+            %td &nbsp;
+            %td
+          %tr
+            %td &nbsp;
+            %td
+          %tr
+            %td &nbsp;
+            %td
+
+      
+      - if false 
+        %table.table.table-striped.table-condensed
+          - %w(7:00 7:15 7:30 7:45 8:00 8:15 8:30 8:45 9:00 9:15 9:30 9:45 10:00 10:15 10:30 10:45 11:00 11:15 11:30 11:45 12:00 12:15 12:30 12:45 1:00 1:15 1:30 1:45 2:00 2:15 2:30 2:45 3:00 3:15 3:30 3:45 4:00 4:15 4:30 4:45 5:00 5:15 5:30 5:45).each do |time|
+            %tr
+              %td= time
