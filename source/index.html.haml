@@ -17,17 +17,18 @@ title: PunchIt
           %li#app-date 
             %a Recent Projects
     %ul.nav.pull-right
-      %li#app-employees 
-        %a 
-          Employees
-          %input.app-all-employees-typeahead(type="hidden" placeholder="Pick Yourself!")
       %li#app-date 
         %a 
           Date
           %input.app-punch-date.span2{value: Date.today}
       %li
-        %span.badge.badge-success 8.25
+        %a
+          %span.badge.badge-success 8.25
 
+      %li.app-employee{"data-employee-id" => "31"}
+        %a(data-toggle="modal" data-target="#app-employees-modal")
+          %i.icon-user
+          %span.app-name Dustin Tinney
 
 .container-fluid
   .row-fluid
@@ -46,11 +47,12 @@ title: PunchIt
               %i.icon-fire.icon-white
   .row-fluid
     .span6
-      %ul#app-all-projects.nav.nav-list
-        %li.nav-header All Projects
-        %li
-          %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
-        %li.app-all-project-stories
+      .app-nav(data-spy="affix")
+        %ul#app-all-projects.nav.nav-list
+          %li.nav-header All Projects
+          %li
+            %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
+          %li.app-all-project-stories
 
     #app-punches.span6
       - if false
@@ -86,3 +88,16 @@ title: PunchIt
           - %w(7:00 7:15 7:30 7:45 8:00 8:15 8:30 8:45 9:00 9:15 9:30 9:45 10:00 10:15 10:30 10:45 11:00 11:15 11:30 11:45 12:00 12:15 12:30 12:45 1:00 1:15 1:30 1:45 2:00 2:15 2:30 2:45 3:00 3:15 3:30 3:45 4:00 4:15 4:30 4:45 5:00 5:15 5:30 5:45).each do |time|
             %tr
               %td= time
+
+
+
+
+
+#app-employees-modal.modal.hide.fade
+  .modal-header
+    %h3 Atom Picker
+    %button.close(data-dismiss="modal") x
+  .modal-body
+    %input.app-all-employees-typeahead(type="hidden" placeholder="AO Employees")
+  .modal-footer
+    %button.btn(data-dismiss="modal") Close

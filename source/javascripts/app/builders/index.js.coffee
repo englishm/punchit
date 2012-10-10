@@ -6,7 +6,7 @@ $ =>
   $('.titled').tooltip()
 
   employeesCollection = new PunchIt.Collections.Employees()
-  employeesView = new PunchIt.Views.Employees(collection: employeesCollection, el: '#app-employees')
+  employeesView = new PunchIt.Views.Employees(collection: employeesCollection, el: '.app-employee')
   employeesCollection.fetch()
 
   projectsCollection = new PunchIt.Collections.Projects()
