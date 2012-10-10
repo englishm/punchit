@@ -5,19 +5,26 @@ title: PunchIt
 .navbar.navbar-fixed-top
   .navbar-inner
     %ul.nav
-      %li#app-date 
-        %a All Project
-      %li#app-date 
-        %a Pinned Projects
-      %li#app-date 
-        %a Recent Projects
+      %li.dropdown
+        %a.dropdown-toggle(data-toggle="dropdown")
+          %i.icon-align-justify
+          Story Picker
+        %ul.dropdown-menu
+          %li#app-date 
+            %a All Project
+          %li#app-date 
+            %a Pinned Projects
+          %li#app-date 
+            %a Recent Projects
     %ul.nav.pull-right
       %li#app-employees 
         %a 
           Employees
           %input.app-all-employees-typeahead(type="hidden" placeholder="Pick Yourself!")
       %li#app-date 
-        %a Date
+        %a 
+          Date
+          %input.app-punch-date.span2{value: Date.today}
 
 
 .container-fluid

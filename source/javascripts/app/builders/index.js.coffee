@@ -17,3 +17,5 @@ $ =>
   punchesCollection = new PunchIt.Collections.Punches()
   punchesView = new PunchIt.Views.Punches(collection: punchesCollection, el: '#app-punches')
 
+  $('.app-punch-date').datepicker()
+
