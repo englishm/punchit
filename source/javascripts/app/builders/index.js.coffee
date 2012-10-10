@@ -1,4 +1,10 @@
 $ =>
+  #date finder
+  $('.app-punch-date').datepicker(format: 'yyyy-mm-dd')
+
+  #bootstrap tooltips
+  $('.titled').tooltip()
+
   employeesCollection = new PunchIt.Collections.Employees()
   employeesView = new PunchIt.Views.Employees(collection: employeesCollection, el: '#app-employees')
   employeesCollection.fetch()
@@ -11,11 +17,8 @@ $ =>
 
   projectsCollection.fetch()
   customersCollection.fetch()
-  
-  $('.titled').tooltip()
 
   punchesCollection = new PunchIt.Collections.Punches()
   punchesView = new PunchIt.Views.Punches(collection: punchesCollection, el: '#app-punches')
 
-  $('.app-punch-date').datepicker()
 

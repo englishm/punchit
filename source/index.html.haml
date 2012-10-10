@@ -25,6 +25,8 @@ title: PunchIt
         %a 
           Date
           %input.app-punch-date.span2{value: Date.today}
+      %li
+        %span.badge.badge-success 8.25
 
 
 .container-fluid
@@ -51,39 +53,32 @@ title: PunchIt
         %li.app-all-project-stories
 
     #app-punches.span6
-      %h2 
-        Tue, Oct 2nd
-        %span.badge.badge-success 8.25
-      .progress
-        .bar.bar-success(style="width: 10%;")
-        .bar.bar-warning(style="width: 5%;")
-        .bar.bar-danger(style="width: 5%;")
-        .bar.bar-success(style="width: 13%;")
-        .bar(style="width: 10%;")
-        .bar.bar-success(style="width: 57%;")
+      - if false
+        .progress
+          .bar.bar-success(style="width: 10%;")
+          .bar.bar-warning(style="width: 5%;")
+          .bar.bar-danger(style="width: 5%;")
+          .bar.bar-success(style="width: 13%;")
+          .bar(style="width: 10%;")
+          .bar.bar-success(style="width: 57%;")
 
-      
-      %table.table-condensed.table
-        - %w(7am 8am 9am 10am 11am Noon 1pm 2pm 3pm 4pm 5pm 6pm 7pm).each do |time|
-          %tr
-            %td.span1
-              = time
-            %td
-              - if time == "8am"
-                .label.label-success.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 4) - 6}px;"}
-                  %strong OAISD - S1324 Reports 
-              - elsif time == "9am"
-                .label.label-info.span5{style: "position: absolute; margin-top: -2px; height: #{(29 * 2) - 6}px;"}
-                  %strong Personal Time
-          %tr
-            %td &nbsp;
-            %td
-          %tr
-            %td &nbsp;
-            %td
-          %tr
-            %td &nbsp;
-            %td
+      .punch-table(style="position: relative")
+        .punches
+        %table.table-condensed.table
+          - %w(midnight 1am 2am 3am 4am 5am 6am 7am 8am 9am 10am 11am Noon 1pm 2pm 3pm 4pm 5pm 6pm 7pm 8pm 9pm 10pm 11pm).each do |time|
+            %tr
+              %td.span1
+                = time
+              %td
+            %tr
+              %td &nbsp;
+              %td
+            %tr
+              %td &nbsp;
+              %td
+            %tr
+              %td &nbsp;
+              %td
 
       
       - if false 
