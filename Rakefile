@@ -5,5 +5,5 @@ task :build do
 end
 
 task :serve do
-  sh 'middleman server'
+  sh 'middleman server -p 4568'
 end
