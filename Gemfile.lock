@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/tinney/middleman-proxy.git
-  revision: 2246b34af30fef040956ce4c07d34518ed311bce
+  revision: b76a07e159692fb8362a3e954911506d648a53c9
   specs:
-    middleman-proxy (0.0.1)
+    middleman-proxy (0.0.2)
       middleman (~> 3.0.5)
 
 GEM
@@ -121,4 +121,4 @@ PLATFORMS
 DEPENDENCIES
   middleman
   middleman-livereload
-  middleman-proxy!
+  middleman-proxy (= 0.0.2)!
