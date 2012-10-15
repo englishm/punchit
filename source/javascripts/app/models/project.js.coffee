@@ -1,14 +1,10 @@
 namespace "PunchIt.Models", (exports) ->
   class exports.Project extends Backbone.Model
     initialize: =>
-      @customer = null
+      @customer = @collection.getCustomer(@get('customerId'))
       @stories = new PunchIt.Collections.Stories()
-      @stories.url = @get('stories').$ref
+      @stories.url = @get('storiesUrl')
       @stories.bind("reset", => @trigger("reset"))
-
-    setCustomer: (customer) =>
-      @customer = customer
-      @.set("fullName", @fullNameWithCustomer())
 
     stories: =>
       @stories
@@ -16,10 +12,17 @@ namespace "PunchIt.Models", (exports) ->
     fetchStories: =>
       @stories.fetch()
 
-    fullNameWithCustomer: =>
+    fullName: =>
       "#{@customer.get('name')} #{@get('name')}"
 
+    isPunchable: =>
+      @get('active') && !@isSales()
+      
+    isSales: =>
+      @get('opportunity_identifier') != null
+
     parse: (rawResponse) =>
+      rawResponse["storiesUrl"] = rawResponse['stories'].$ref
       rawResponse["customerId"] = rawResponse["customer"].id
       rawResponse
 

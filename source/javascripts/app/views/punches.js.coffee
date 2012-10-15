@@ -1,6 +1,6 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Punches extends Backbone.View
-    initialize: =>
+    initialize: ({@projects}) =>
       @datePicker = $('.app-punch-date')
 
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
@@ -13,10 +13,8 @@ namespace "PunchIt.Views", (exports) ->
 
     employeeId: =>
       $('.app-employee').data('employee-id')
-      
 
     updatePunches: =>
-      console.log "Updating punches"
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
       @collection.fetch()
 
