@@ -6,26 +6,43 @@ namespace "PunchIt.Views", (exports) ->
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
 
       @datePicker.on('changeDate', @updatePunches)
+
       @collection.on('reset', @refresh)
-      @collection.fetch()
+      @collection.on('add', @refresh)
+
+      @collection.loadPunches()
 
       $('.app-employee').on('changeData', @updatePunches)
+
+      @views = {}
 
     employeeId: =>
       $('.app-employee').data('employee-id')
 
     updatePunches: =>
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
-      @collection.fetch()
+      @collection.loadPunches()
 
     refresh: =>
+      _(@views).each (view) =>
+        view.remove()
+
+      padding = 3
+      ticksInHour = 4
+      tickHeight = 30
+
       punchLabels = []
+
+
       @collection.each (punch) =>
-        start = punch.get('start') 
-        stop = punch.get('stop') 
+        start = punch.get('start')
+        stop = punch.get('stop')
         ticks = (stop - start) / .25
 
-        type = punch.get
-        punchLabels.push "<span class='label label-success' style='position: absolute; top: #{3 + ((start*4) * 29)}px;  width: 75%; left: 50px; height: #{(29 * ticks) - 6}px;'>#{start} #{stop} #{punch.get('notes')}</span>"
+        @views[punch.id] ||= new PunchIt.Views.Punch(model: punch)
+        view = @views[punch.id]
 
-      $('.punch-table .punches').html(punchLabels)
+        $el = $(view.el)
+        $el.css('top', "#{padding + ((start * ticksInHour) * tickHeight)}px")
+        $el.css("height", "#{(tickHeight * ticks) - 2*padding}px")
+        $('.punch-table .punches').append($el)

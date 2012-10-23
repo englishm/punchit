@@ -5,7 +5,7 @@ activate :middle_proxy, [
   {path: "/customers", to: "127.0.0.1:4567"},
   {path: "/stories", to: "127.0.0.1:4567"}]
 
-activate :livereload
+#activate :livereload
 
 ###
 # Compass

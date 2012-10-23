@@ -4,23 +4,15 @@ title: PunchIt
 
 .navbar.navbar-fixed-top
   .navbar-inner
-    .container
-      %ul.nav
-        %li.dropdown
-          %a.dropdown-toggle(data-toggle="dropdown")
-            %i.icon-align-justify
-            Story Picker
-          %ul.dropdown-menu
-            %li#app-date 
-              %a All Project
-            %li#app-date 
-              %a Pinned Projects
-            %li#app-date 
-              %a Recent Projects
-
-        %li
+    .container-fluid
+      .row-fluid
+        .span12
           #app-active-story.alert.alert-info
-            %strong Active Story
+            %span.app-project Nada
+            %span.app-story
+            %span.app-start
+            %span.app-stop
+
             %span.pull-right
               .btn.btn-mini.btn-inverse.titled(title="Pin this story" data-placement="bottom")
                 %i.icon-star.icon-white
@@ -30,27 +22,43 @@ title: PunchIt
 
               .btn.btn-mini.btn-inverse.titled(title="Mark this story 100% done" data-placement="bottom")
                 %i.icon-fire.icon-white
-      %ul.nav.pull-right
-        %li#app-date 
-          %a 
-            Date
-            %input.app-punch-date.span2{value: Date.today}
-        %li
-          %a
-            %span.badge.badge-success 8.25
-
-        %li.app-employee{"data-employee-id" => "31"}
-          %a(data-toggle="modal" data-target="#app-employees-modal")
-            %i.icon-user
-            %span.app-name Dustin Tinney
-
+      .row-fluid
+        .span4
+          .div(style="padding: 10px 15px;")
+            .progress
+              .bar.bar-success(style="width: 45%;")
+              .bar.bar-warning(style="width: 10%;")
+        .span4
+          .div(style="padding: 10px 15px;")
+            %span.badge.badge-success 18
+            %span.badge.badge-warning 4 
+        .span4
+          %ul.nav.pull-right
+            %li
+              %a 
+                %span.badge.badge-success 5.25
+            %li.app-employee{"data-employee-id" => "31"}
+              %a(data-toggle="modal" data-target="#app-employees-modal")
+                %i.icon-user
+                %span.app-name Dustin Tinney
+            %li.dropdown
+              %a.dropdown-toggle(data-toggle="dropdown")
+                %i.icon-align-justify
+              %ul.dropdown-menu
+                %li
+                  %a All Project
+                %li
+                  %a Pinned Projects
+                %li
+                  %a Recent Projects
 .container-fluid
-  .row-fluid
-    .span12 &nbsp;
-    .span12 &nbsp;
   .row-fluid
     .span6
       .app-nav(data-spy="affix")
+        #app-date
+          %input.input-small.app-punch-date{value: Date.today, type: "hidden"}
+          #app-datepicker
+
         %ul#app-all-projects.nav.nav-list
           %li.nav-header All Projects
           %li
@@ -68,35 +76,34 @@ title: PunchIt
           .bar(style="width: 10%;")
           .bar.bar-success(style="width: 57%;")
 
-      .punch-table(style="position: relative")
+      #daily-punches.punch-table
         .punches
         %table.table-condensed.table
-          - %w(midnight 1am 2am 3am 4am 5am 6am 7am 8am 9am 10am 11am Noon 1pm 2pm 3pm 4pm 5pm 6pm 7pm 8pm 9pm 10pm 11pm).each do |time|
-            %tr
-              %td.span1
-                = time
-              %td
-            %tr
-              %td &nbsp;
-              %td
-            %tr
-              %td &nbsp;
-              %td
-            %tr
-              %td &nbsp;
-              %td
+          - times = []
+          - 24.times do |time|
+            - if time == 0
+              - times << {name: "midnight", hour: time}
+            - elsif time == 12 
+              - times << {name: "noon", hour: time}
+            - elsif time > 12
+              - times << {name: "#{time-12}pm", hour: time}
+            - else
+              - times << {name: "#{time}am", hour: time}
 
+          - times.each do |time| 
+            - %w(00 25 5 75).each do |minutes|
+              %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}"}
+                %td.span1
+                  %small
+                    - if minutes == "00"
+                      = time[:name]
+                    - elsif minutes == "25"
+                      15
+                    - elsif minutes == "5"
+                      30
+                    - elsif minutes == "75"
+                      45
       
-      - if false 
-        %table.table.table-striped.table-condensed
-          - %w(7:00 7:15 7:30 7:45 8:00 8:15 8:30 8:45 9:00 9:15 9:30 9:45 10:00 10:15 10:30 10:45 11:00 11:15 11:30 11:45 12:00 12:15 12:30 12:45 1:00 1:15 1:30 1:45 2:00 2:15 2:30 2:45 3:00 3:15 3:30 3:45 4:00 4:15 4:30 4:45 5:00 5:15 5:30 5:45).each do |time|
-            %tr
-              %td= time
-
-
-
-
-
 #app-employees-modal.modal.hide.fade
   .modal-header
     %h3 Atom Picker

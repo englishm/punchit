@@ -4,19 +4,34 @@ namespace "PunchIt.Models", (exports) ->
       @customer = @collection.getCustomer(@get('customerId'))
       @stories = new PunchIt.Collections.Stories()
       @stories.url = @get('storiesUrl')
-      @stories.bind("reset", => @trigger("reset"))
+      @stories.bind("reset", => @trigger("storiesLoaded"))
 
     stories: =>
       @stories
 
     fetchStories: =>
-      @stories.fetch()
+      if !@hasStories
+        @trigger("storiesLoaded")
+      else if @stories.length > 0
+        @trigger("storiesLoaded")
+      else
+        @stories.fetch()
+
+    storiesLoaded: =>
+      @stories.length > 0
+
+    hasStories: =>
+      @get('has_stories')
 
     fullName: =>
       "#{@customer.get('name')} #{@get('name')}"
 
     isPunchable: =>
       @get('active') && !@isSales()
+
+    getStoryName: (id) =>
+      return '' unless id
+      @stories.get(id).get('name')
       
     isSales: =>
       @get('opportunity_identifier') != null
