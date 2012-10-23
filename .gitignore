@@ -14,3 +14,4 @@
 /.sass-cache
 tags
 *.swp
+*.DS_Store

@@ -22,4 +22,4 @@ $ =>
     punchesCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
     punchesView = new PunchIt.Views.Punches(projects: projectsCollection, collection: punchesCollection, el: '#app-punches')
 
-    newPunchView = new PunchIt.Views.NewPunch(el: $('#app-active-story'), collection: punchesCollection)
+    newPunchView = new PunchIt.Views.NewPunch(punchesView: punchesView)

@@ -23,26 +23,29 @@ namespace "PunchIt.Views", (exports) ->
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
       @collection.loadPunches()
 
+    addPunch: (view, start, stop) =>
+      console.log "adding punch"
+
+      padding = 3
+      ticksInHour = 4
+      tickHeight = 38
+
+      ticks = (stop - start) / .25
+
+      $el = $(view.el)
+      $el.css('top', "#{padding + ((start * ticksInHour) * tickHeight)}px")
+      $el.css("height", "#{(tickHeight * ticks) - 2*padding}px")
+      $('.punch-table .punches').append($el)
+
     refresh: =>
       _(@views).each (view) =>
         view.remove()
 
-      padding = 3
-      ticksInHour = 4
-      tickHeight = 30
-
-      punchLabels = []
-
-
       @collection.each (punch) =>
         start = punch.get('start')
         stop = punch.get('stop')
-        ticks = (stop - start) / .25
 
         @views[punch.id] ||= new PunchIt.Views.Punch(model: punch)
         view = @views[punch.id]
+        @addPunch(view, start, stop)
 
-        $el = $(view.el)
-        $el.css('top', "#{padding + ((start * ticksInHour) * tickHeight)}px")
-        $el.css("height", "#{(tickHeight * ticks) - 2*padding}px")
-        $('.punch-table .punches').append($el)

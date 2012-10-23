@@ -1,78 +1,54 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.NewPunch extends Backbone.View
-    initialize: =>
-      #this should be stored on the model
-      
-      @datePicker = $('.app-punch-date')
-      @project = null
-      @story = null
-      @start = null
-      @stop = null
+    initialize: ({@punchesView}) =>
+      @view = null
+      @model = new PunchIt.Models.Punch()
 
+      #this should be stored on the model
+      PunchIt.Events.on "timePicked", @timePicked
       PunchIt.Events.on "storyActivated", @storyActivated
       PunchIt.Events.on "projectActivated", @projectActivated
-      PunchIt.Events.on "timePicked", @timePicked
 
       #this should be moved
-      $('.app-time').on 'click', @timeClicked
-
-    timeClicked: (event) =>
-      PunchIt.Events.trigger "timePicked", $(event.currentTarget).data('time')
+      $('.app-time').on 'click', (event) =>
+        PunchIt.Events.trigger "timePicked", $(event.currentTarget).data('time')
 
 
     projectActivated: (project) =>
-      @project = project
-      @clearStory()
-      @.$('.app-project').html("<strong>#{@project.fullName()}</strong>")
-
-    clearStory: =>
-      @story = null
-      @.$('.app-story').html("")
+      @model.setProject(project)
 
     storyActivated: (story) =>
-      @story = story
-      @.$('.app-story').html("- <strong>#{@story.get('name')}</strong>")
-
-
-    resetPunch: =>
-      @start = null
-      @stop = null
-
-      @.$('.app-start').html("")
-      @.$('.app-stop').html("")
-
-    acceptsTime: =>
-      if @project == null
-        false
-      else if @project.hasStories() and @story == null
-        false
-      else
-        true
-
-    projectId: =>
-      @project.id
-
-    storyId: =>
-      if @story then @story.id else null
+      @model.setStory(story)
 
     timePicked: (time) =>
-      if @acceptsTime()
-        if @.$('.app-start').html() == ''
-          @start = time
-          @.$('.app-start').html(time)
-        else
-          @stop = time
+      if @view
+        console.log "another click"
+      else
+        @view = new PunchIt.Views.Punch(model: @model)
+        @view.render()
 
-          @collection.create(
-            project_id: @project.id
-            story_id: @story.id if @story
-            date: @datePicker.val()
-            start: @start
-            stop: @stop
-            notes: "punching from FacePunch"
-          ,
-            success: @collection.loadStories
-          )
+        @model.set('start', time)
+        @model.set('stop', time + .25)
+        console.log(time + .25)
 
-          @resetPunch()
+        @punchesView.addPunch(@view, time, time + .25)
+      # if @acceptsTime()
+      #   if @.$('.app-start').html() == ''
+      #     @start = time
+      #     @.$('.app-start').html(time)
+      #   else
+      #     @stop = time
+
+      #     @collection.create(
+      #       project_id: @project.id
+      #       story_id: @story.id if @story
+      #       date: @datePicker.val()
+      #       start: @start
+      #       stop: @stop
+      #       notes: "punching from FacePunch"
+      #     ,
+      #       success: @collection.loadStories
+      #     )
+
+      #     @resetPunch()
 
