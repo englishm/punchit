@@ -9,6 +9,9 @@ namespace "PunchIt.Models", (exports) ->
       else
         ""
 
+    project: =>
+      @project
+
     setProject: (project) =>
       @project = project
       @project.on "storiesLoaded", =>

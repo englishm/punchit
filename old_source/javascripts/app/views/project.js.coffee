@@ -7,7 +7,7 @@ namespace "PunchIt.Views", (exports) ->
       $(@el).append("<li class='nav-header'>#{@model.fullName()}</li>")
       $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
 
-      @model.on("storiesLoaded", @populateStories)
+      @model.on("reset", @populateStories)
       @model.fetchStories()
 
       @$('.app-stories').on("change", @storyPicked)

@@ -1,0 +1,13 @@
+body {
+  padding-top: 120px;
+}
+
+#daily-punches .punch {
+  position: absolute;
+  left: 50px;
+  width: 75%;
+}
+
+#daily-punches {
+  position: relative;
+}

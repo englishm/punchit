@@ -22,12 +22,7 @@ namespace "PunchIt.Views", (exports) ->
 
     projectActivated: (project) =>
       @project = project
-      @clearStory()
       @.$('.app-project').html("<strong>#{@project.fullName()}</strong>")
-
-    clearStory: =>
-      @story = null
-      @.$('.app-story').html("")
 
     storyActivated: (story) =>
       @story = story
@@ -35,16 +30,20 @@ namespace "PunchIt.Views", (exports) ->
 
 
     resetPunch: =>
+      @project = null
+      @story = null
       @start = null
       @stop = null
 
       @.$('.app-start').html("")
       @.$('.app-stop').html("")
+      @.$('.app-project').html("Nada")
+      @.$('.app-story').html("")
 
     acceptsTime: =>
       if @project == null
         false
-      else if @project.hasStories() and @story == null
+      else if @story == null and @project.hasStories()
         false
       else
         true
@@ -58,21 +57,16 @@ namespace "PunchIt.Views", (exports) ->
     timePicked: (time) =>
       if @acceptsTime()
         if @.$('.app-start').html() == ''
-          @start = time
           @.$('.app-start').html(time)
         else
-          @stop = time
+          console.log "punching"
 
-          @collection.create(
-            project_id: @project.id
-            story_id: @story.id if @story
-            date: @datePicker.val()
-            start: @start
-            stop: @stop
-            notes: "punching from FacePunch"
-          ,
-            success: @collection.loadStories
-          )
+          console.log @project
+          console.log @project.id
 
+          console.log @story
+          console.log @story.id
+
+          @collection.create(project_id: @project.id, story_id: @story.id, date: @datePicker.val(), start: @start, stop: @stop, notes: "punching from FacePunch")
           @resetPunch()
 

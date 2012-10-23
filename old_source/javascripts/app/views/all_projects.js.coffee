@@ -1,9 +1,11 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.AllProjects extends Backbone.View
     initialize: ({@projects}) =>
+      @projects.on("reset", @refresh)
       @$('.app-all-projects-typeahead').on('change', @projectPicked)
 
-    render: =>
+    refresh: =>
+      #load up the typeahead data
       data = []
       @projects.each (project) =>
         data.push(id: project.id, text: project.fullName()) if project.isPunchable()
