@@ -24,8 +24,6 @@ namespace "PunchIt.Views", (exports) ->
       @collection.loadPunches()
 
     addPunch: (view, start, stop) =>
-      console.log "adding punch"
-
       padding = 3
       ticksInHour = 4
       tickHeight = 38
@@ -36,6 +34,9 @@ namespace "PunchIt.Views", (exports) ->
       $el.css('top', "#{padding + ((start * ticksInHour) * tickHeight)}px")
       $el.css("height", "#{(tickHeight * ticks) - 2*padding}px")
       $('.punch-table .punches').append($el)
+
+    addModel: (model) =>
+      @collection.add model
 
     refresh: =>
       _(@views).each (view) =>

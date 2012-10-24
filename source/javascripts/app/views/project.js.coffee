@@ -5,7 +5,11 @@ namespace "PunchIt.Views", (exports) ->
 
     initialize: =>
       $(@el).append("<li class='nav-header'>#{@model.fullName()}</li>")
-      $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
+
+      if @model.hasStories()
+        $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
+      else
+        $(@el).append('<li>No Stories</li>')
 
       @model.on("storiesLoaded", @populateStories)
       @model.fetchStories()
@@ -14,7 +18,6 @@ namespace "PunchIt.Views", (exports) ->
 
     storyPicked: (event) =>
       PunchIt.Events.trigger("storyActivated", @model.stories.get($(event.currentTarget).val()))
-      #$('#active-story').html("<strong>#{story.get('name')}</strong><span class='pull-right'><span class='button'><i class='icon-star'></i></span><i class='icon-globe'></i><i class='icon-fire'></i></span>")
 
     populateStories: =>
       data = []

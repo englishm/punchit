@@ -11,3 +11,21 @@ body {
 #daily-punches {
   position: relative;
 }
+
+.punch input {
+  border: none;
+  font-size: 12px;
+  margin: 0px;
+  margin-top: -14px;
+  padding: 0px;
+  background-color: rgba(0,0,0,0);
+  color: white;
+  outline: none;
+  line-height: 12px;
+  box-shadow: none;
+}
+
+.punch input:focus {
+  outline: none;
+  box-shadow: none;
+}

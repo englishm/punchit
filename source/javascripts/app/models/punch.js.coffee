@@ -5,7 +5,7 @@ namespace "PunchIt.Models", (exports) ->
 
     info: =>
       if @project
-        "#{@project.fullName()} - #{@project.getStoryName(@get('storyId'))} - From #{@startFormatted()} to #{@stopFormatted()}"
+        "#{@project.fullName()} #{@project.getStoryName(@get('storyId'))}"
       else
         "Pick a project"
 
@@ -23,3 +23,24 @@ namespace "PunchIt.Models", (exports) ->
     stopFormatted: =>
       @get('stop')
 
+    setStart: (time) =>
+      if @get('stop') and time < @get('stop')
+        console.log "setting start: #{time}"
+        @set
+          start: time
+      else
+        console.log "setting stop & start: #{time + .25} to #{time}"
+        @set
+          start: time
+          stop: time + .25
+
+    setStop: (time) =>
+      if @get('start') and time > @get('stop')
+        console.log "setting stop to #{time}"
+        @set
+          stop: time
+      else
+        console.log "setting stop & start: #{time + .25} to #{time}"
+        @set
+          stop: time
+          start: time - .25
