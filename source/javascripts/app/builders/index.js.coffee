@@ -2,7 +2,6 @@ $ =>
   #date finder
   # $('.app-punch-date').datepicker('show', format: 'yyyy-mm-dd')
   $('.app-punch-date').datepicker('show')
-
   #bootstrap tooltips
   $('.titled').tooltip()
 
@@ -22,4 +21,6 @@ $ =>
     punchesCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
     punchesView = new PunchIt.Views.Punches(projects: projectsCollection, collection: punchesCollection, el: '#app-punches')
 
-    newPunchView = new PunchIt.Views.NewPunch(punchesView: punchesView)
+    newPunchView = new PunchIt.Views.NewPunch(punchesCollection: punchesCollection, punchesView: punchesView, datePicker: $('.app-punch-date'))
+
+    window.punches = punchesCollection

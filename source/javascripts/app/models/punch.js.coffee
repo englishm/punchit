@@ -5,17 +5,18 @@ namespace "PunchIt.Models", (exports) ->
 
     info: =>
       if @project
-        "#{@project.fullName()} #{@project.getStoryName(@get('storyId'))}"
+        "#{@project.fullName()} #{@project.getStoryName(@get('story_id'))}"
       else
         "Pick a project"
 
     setProject: (project) =>
+      @set(project_id: project.id)
       @project = project
       @project.on "storiesLoaded", =>
         @trigger("loaded")
 
     setStory: (story) =>
-      @set('storyId', story.id)
+      @set(story_id: story.id)
 
     startFormatted: =>
       @get('start')
@@ -44,3 +45,12 @@ namespace "PunchIt.Models", (exports) ->
         @set
           stop: time
           start: time - .25
+
+    parse: (raw) =>
+      id: raw['id']
+      date: raw['date']
+      project_id: raw.project.id
+      story_id: if raw.story then raw.story.id else null
+      notes: raw['notes']
+      start: parseFloat(raw['start'])
+      stop: parseFloat(raw['stop'])

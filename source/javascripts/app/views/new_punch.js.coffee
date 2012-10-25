@@ -1,18 +1,13 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.NewPunch extends Backbone.View
-    initialize: ({@punchesView}) =>
-      @model = new PunchIt.Models.Punch(notes: 'doooo it')
-      @view = new PunchIt.Views.Punch(model: @model)
+    initialize: ({@punchesCollection, @punchesView, @datePicker}) =>
+      @model = new PunchIt.Models.Punch(date: @datePicker.val())
 
-      #this should be stored on the model
       PunchIt.Events.on "startTime", @startPicked
       PunchIt.Events.on "stopTime", @stopPicked
-
       PunchIt.Events.on "storyActivated", @storyActivated
       PunchIt.Events.on "projectActivated", @projectActivated
-
-      @model.on "change", @updateView
-      @view.on "notesSave", @doIt
+      PunchIt.Events.on "punchClicked", @punchActivated
 
       #this should be moved to a DAY view that doesn't exist or punches?
       $('.app-time').on 'click', (event) =>
@@ -21,10 +16,16 @@ namespace "PunchIt.Views", (exports) ->
         else
           PunchIt.Events.trigger "stopTime", $(event.currentTarget).data('time')
 
+    punchActivated: (punch) =>
+      console.log "got punch activated: #{punch}"
+      @model = punch
+
     projectActivated: (project) =>
+      console.log "updating project to #{project}"
       @model.setProject(project)
 
     storyActivated: (story) =>
+      console.log "updating story to #{story}"
       @model.setStory(story)
 
     startPicked: (time) =>
@@ -33,14 +34,7 @@ namespace "PunchIt.Views", (exports) ->
     stopPicked: (time) =>
       @model.setStop parseFloat(time) + .25
 
-    #TODO this should probably also be in the punches view
-    updateView: =>
-      @view.remove()
-      @view.render()
-      @punchesView.addPunch(@view, @model.get('start'), @model.get('stop'))
-
-
-    doIt: =>
-      @collection.add(@model, success: =>
-        @collection.loadStories()
-        @updateView())
+    # updateView: =>
+    #   @view.remove()
+    #   @view.render()
+    #   @punchesView.addPunch(@view, @model.get('start'), @model.get('stop'))

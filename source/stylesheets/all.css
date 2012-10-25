@@ -12,7 +12,7 @@ body {
   position: relative;
 }
 
-.punch input {
+.punch .notes {
   border: none;
   font-size: 12px;
   margin: 0px;
@@ -25,7 +25,7 @@ body {
   box-shadow: none;
 }
 
-.punch input:focus {
+.punch .notes:focus {
   outline: none;
   box-shadow: none;
 }

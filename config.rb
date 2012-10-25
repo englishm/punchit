@@ -1,9 +1,17 @@
 require "middleman-proxy"
+api_url = "127.0.0.1:4567"
 activate :middle_proxy, [
-  {path: "/employees", to: "127.0.0.1:4567"}, 
-  {path: "/projects", to: "127.0.0.1:4567"}, 
-  {path: "/customers", to: "127.0.0.1:4567"},
-  {path: "/stories", to: "127.0.0.1:4567"}]
+  {path: "/employees", to: api_url}, 
+  {path: "/projects", to: api_url},
+  {path: "/customers", to: api_url},
+  {path: "/stories", to: api_url}]
+
+# api_url = "punchitapi.atomicobject.com"
+# activate :middle_proxy, [
+#   {path: "/employees", to: api_url, secure: true}, 
+#   {path: "/projects", to: api_url, secure: true},
+#   {path: "/customers", to: api_url, secure: true},
+#   {path: "/stories", to: api_url, secure: true}]
 
 #activate :livereload
 

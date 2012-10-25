@@ -1,20 +1,18 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Punches extends Backbone.View
     initialize: ({@projects}) =>
+      @collection.url = "/employees/#{@employeeId()}/punches"
+
       @datePicker = $('.app-punch-date')
-
-      @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
-
       @datePicker.on('changeDate', @updatePunches)
 
       @collection.on('reset', @refresh)
-      @collection.on('add', @refresh)
-
-      @collection.loadPunches()
-
-      $('.app-employee').on('changeData', @updatePunches)
+      @collection.on('add', @updateViews)
+      @collection.on('change', @updateViews)
 
       @views = {}
+      $('.app-employee').on('changeData', @updatePunches)
+      @updatePunches()
 
     employeeId: =>
       $('.app-employee').data('employee-id')
@@ -22,6 +20,7 @@ namespace "PunchIt.Views", (exports) ->
     updatePunches: =>
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
       @collection.loadPunches()
+      @collection.url = "/employees/#{@employeeId()}/punches"
 
     addPunch: (view, start, stop) =>
       padding = 3
@@ -38,15 +37,22 @@ namespace "PunchIt.Views", (exports) ->
     addModel: (model) =>
       @collection.add model
 
+    updateViews: =>
+      @collection.each (punch) =>
+        start = punch.get('start')
+        stop = punch.get('stop')
+      
+        unless @views[punch.id]
+          console.log "creating a new view"
+          @views[punch.id] = new PunchIt.Views.Punch(model: punch)
+
+        @addPunch(@views[punch.id], start, stop)
+
     refresh: =>
       _(@views).each (view) =>
         view.remove()
 
-      @collection.each (punch) =>
-        start = punch.get('start')
-        stop = punch.get('stop')
+      @updateViews()
 
-        @views[punch.id] ||= new PunchIt.Views.Punch(model: punch)
-        view = @views[punch.id]
-        @addPunch(view, start, stop)
+
 

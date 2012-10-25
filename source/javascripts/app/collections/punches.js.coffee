@@ -20,9 +20,3 @@ namespace "PunchIt.Collections", (exports) ->
 
       _(projects).each (project) =>
         project.fetchStories()
-
-    parse: (rawResponses) =>
-      raw = _(rawResponses).map (response) =>
-        response['project_id'] = response.project.id
-        response['storyId'] = if response.story then response.story.id else null
-        response

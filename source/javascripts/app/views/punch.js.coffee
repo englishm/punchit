@@ -3,9 +3,21 @@ namespace "PunchIt.Views", (exports) ->
     tagName: "span"
     className: "label"
 
+
     initialize: =>
-      @model.bind("loaded", @render)
-      @model.bind("change", @refresh)
+      @model.on("loaded", @render)
+      #@model.on("change", @refresh)
+      @$el.on('click', @clicked)
+
+
+    clicked: =>
+      console.log "punch activated"
+      PunchIt.Events.trigger("punchClicked", @model)
+
+    save: =>
+      console.log "saving model #{@model}"
+      @model.save()
+        
 
     type: =>
       if @model.isNew()
@@ -24,17 +36,12 @@ namespace "PunchIt.Views", (exports) ->
 
       @$el.addClass("label-#{@type()}")
       @$el.attr('title', @model.get('notes'))
-      @$el.html("<p>#{@model.info()}</p><input type='text' />")
+      @.$('.app-info').html(@model.info())
 
     render: =>
       @$el.addClass("punch")
       @$el.addClass("app-punch")
       @$el.attr('rel', 'tooltip')
-
-      #not sure where to move this too didn't work in events
-      @$el.on('click', @save)
-
+      @$el.html("<span class='btn btn-mini pull-right app-save'><i class='icon-edit'></i></span><p class='app-info'></p><input type='text' class='app-notes notes'  />")
+      @.$('.app-save').on('click', @save)
       @refresh()
-
-    save: =>
-      @model.save()
