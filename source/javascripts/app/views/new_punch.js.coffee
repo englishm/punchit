@@ -1,13 +1,13 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.NewPunch extends Backbone.View
     initialize: ({@punchesCollection, @punchesView, @datePicker}) =>
-      @model = new PunchIt.Models.Punch(date: @datePicker.val())
-
       PunchIt.Events.on "startTime", @startPicked
       PunchIt.Events.on "stopTime", @stopPicked
       PunchIt.Events.on "storyActivated", @storyActivated
       PunchIt.Events.on "projectActivated", @projectActivated
       PunchIt.Events.on "punchClicked", @punchActivated
+
+      @model = null
 
       #this should be moved to a DAY view that doesn't exist or punches?
       $('.app-time').on 'click', (event) =>
@@ -29,10 +29,20 @@ namespace "PunchIt.Views", (exports) ->
       @model.setStory(story)
 
     startPicked: (time) =>
-      @model.setStart parseFloat(time)
+      unless @model
+        @model ||= new PunchIt.Models.Punch(date: @datePicker.val())
+        @model.setStart parseFloat(time) + .25
+        @punchesCollection.add(@model)
+      else
+        @model.setStart parseFloat(time) + .25
 
     stopPicked: (time) =>
-      @model.setStop parseFloat(time) + .25
+      unless @model
+        @model ||= new PunchIt.Models.Punch(date: @datePicker.val())
+        @model.setStop parseFloat(time) + .25
+        @punchesCollection.add(@model)
+      else
+        @model.setStop parseFloat(time) + .25
 
     # updateView: =>
     #   @view.remove()
