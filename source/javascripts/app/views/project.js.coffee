@@ -3,21 +3,30 @@ namespace "PunchIt.Views", (exports) ->
     tagName: "ul"
     className: "nav nav-list"
 
+    events:
+      "click app-pick": "projectClicked"
+
+
     initialize: =>
-      $(@el).append("<li class='nav-header'>#{@model.fullName()}</li>")
-
       if @model.hasStories()
+        $(@el).append("<li class='nav-header app-project'>#{@model.fullName()}</li>")
         $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
+
+        @model.on("storiesLoaded", @populateStories)
+        @model.fetchStories()
+        @$('.app-stories').on("change", @storyPicked)
       else
-        $(@el).append('<li>No Stories</li>')
+        $(@el).append("<li class='nav-header app-project'>#{@model.fullName()}<span class='btn btn-mini pull-right'><i class='icon-share-alt'></i></span></li>")
+        $(@el).on('click', => @projectClicked())
 
-      @model.on("storiesLoaded", @populateStories)
-      @model.fetchStories()
 
-      @$('.app-stories').on("change", @storyPicked)
 
     storyPicked: (event) =>
       PunchIt.Events.trigger("storyActivated", @model.stories.get($(event.currentTarget).val()))
+
+    projectClicked: =>
+      console.log "picked"
+      PunchIt.Events.trigger "projectActivated", @model
 
     populateStories: =>
       data = []

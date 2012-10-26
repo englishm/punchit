@@ -10,6 +10,7 @@ namespace "PunchIt.Models", (exports) ->
       @stories
 
     fetchStories: =>
+      console.log "fetching projects for #{@id}"
       if !@hasStories
         @trigger("storiesLoaded")
       else if @stories.length > 0
@@ -29,9 +30,8 @@ namespace "PunchIt.Models", (exports) ->
     isPunchable: =>
       @get('active') && !@isSales()
 
-    getStoryName: (id) =>
-      return '' unless id
-      @stories.get(id).get('name')
+    getStory: (id) =>
+      @stories.get(id) if id and @hasStories()
       
     isSales: =>
       @get('opportunity_identifier') != null
@@ -40,6 +40,3 @@ namespace "PunchIt.Models", (exports) ->
       rawResponse["storiesUrl"] = rawResponse['stories'].$ref
       rawResponse["customerId"] = rawResponse["customer"].id
       rawResponse
-
-
-

@@ -3,45 +3,59 @@ namespace "PunchIt.Views", (exports) ->
     tagName: "span"
     className: "label"
 
-
-    initialize: =>
-      @model.on("loaded", @render)
-      #@model.on("change", @refresh)
+    initialize: ({@projects}) =>
       @$el.on('click', @clicked)
 
-
-    clicked: =>
-      console.log "punch activated"
-      PunchIt.Events.trigger("punchClicked", @model)
-
-    save: =>
-      console.log "saving model #{@model}"
-      @model.save()
+      @model.on "change", => @refresh()
+      @model.on("destroy", => @remove())
+      @project().on('storiesLoaded', => @refresh()) if @project()
         
+    clicked: =>
+      if @model.active
+        console.log "saving model #{@model}"
+        @model.save(@model.attributes, success: =>
+          console.log "success"
+          @model.deactivate())
+      else
+        console.log "punch activated"
+        PunchIt.Events.trigger("punchClicked", @model)
 
     type: =>
-      if @model.isNew()
+      if @model.isNew() or @model.active
         "default"
-      else if @model.project.get('billable')
+      else if @project().get('billable')
         "success"
-      else if @model.project.get('personal')
+      else if @project().get('personal')
         "info"
       else
         "warning"
 
+    project: =>
+      @projects.get(@model.get('project_id'))
+
+    story: =>
+      if @project()
+        @project().getStory(@model.get('story_id'))
 
     refresh: =>
       # can this be a label-* match? 
       @$el.removeClass("label-default label-success label-info label-warning")
-
       @$el.addClass("label-#{@type()}")
       @$el.attr('title', @model.get('notes'))
-      @.$('.app-info').html(@model.info())
+
+      if @project()
+        @.$('.app-project').text(@project().fullName())
+      else
+        @.$('.app-project').text("Pick a project")
+
+      if @story()
+        @.$('.app-story').text(@story().fullName())
+      else
+        @.$('.app-story').text()
 
     render: =>
       @$el.addClass("punch")
       @$el.addClass("app-punch")
       @$el.attr('rel', 'tooltip')
-      @$el.html("<span class='btn btn-mini pull-right app-save'><i class='icon-edit'></i></span><p class='app-info'></p><input type='text' class='app-notes notes'  />")
+      @$el.html("<p><span class='app-project'></span> <span class='app-story'></span></p><input type='text' class='app-notes notes'  />")
       @.$('.app-save').on('click', @save)
-      @refresh()

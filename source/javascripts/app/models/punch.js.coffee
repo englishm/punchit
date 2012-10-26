@@ -2,27 +2,22 @@ namespace "PunchIt.Models", (exports) ->
   class exports.Punch extends Backbone.Model
     initialize: =>
       @project = null
+      @active = false
 
-    info: =>
-      if @project
-        "#{@project.fullName()} #{@project.getStoryName(@get('story_id'))}"
-      else
-        "Pick a project"
+    activate: =>
+      @active = true
+      @trigger("change")
+      @trigger("activate")
 
-    setProject: (project) =>
-      @set(project_id: project.id)
-      @project = project
-      @project.on "storiesLoaded", =>
-        @trigger("loaded")
+    deactivate: =>
+      @active = false
+      @trigger("change")
+      @trigger("deactivate")
 
-    setStory: (story) =>
-      @set(story_id: story.id)
-
-    startFormatted: =>
-      @get('start')
-
-    stopFormatted: =>
-      @get('stop')
+    setStory: (story_id, project_id) =>
+      @set
+        project_id: project_id
+        story_id: story_id
 
     setStart: (time) =>
       if @get('stop') and time < @get('stop')
@@ -31,17 +26,18 @@ namespace "PunchIt.Models", (exports) ->
           start: time
       else
         console.log "setting stop & start: #{time + .25} to #{time}"
+        console.log @
         @set
           start: time
           stop: time + .25
 
     setStop: (time) =>
-      if @get('start') and time > @get('stop')
-        console.log "setting stop to #{time}"
+      if @get('start') and time > @get('start')
+        console.log "setting stop: #{time}"
         @set
           stop: time
       else
-        console.log "setting stop & start: #{time + .25} to #{time}"
+        console.log "setting start & stop: #{time - .25} to #{time}"
         @set
           stop: time
           start: time - .25

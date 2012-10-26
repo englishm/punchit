@@ -42,11 +42,16 @@ namespace "PunchIt.Views", (exports) ->
         start = punch.get('start')
         stop = punch.get('stop')
       
-        unless @views[punch.id]
-          console.log "creating a new view"
-          @views[punch.id] = new PunchIt.Views.Punch(model: punch)
+        unless @views[punch.cid]
+          @views[punch.cid] = new PunchIt.Views.Punch(model: punch, projects: @projects)
+          @views[punch.cid].render()
 
-        @addPunch(@views[punch.id], start, stop)
+        @addPunch(@views[punch.cid], start, stop)
+
+      #tell all the projects to get their stories so we can assume a project has a story
+      _(@collection.pluck('project_id')).uniq (id) =>
+        console.log "got #{id}"
+        @projects.get(id).fetchStories()
 
     refresh: =>
       _(@views).each (view) =>

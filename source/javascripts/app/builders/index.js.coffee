@@ -23,4 +23,4 @@ $ =>
 
     newPunchView = new PunchIt.Views.NewPunch(punchesCollection: punchesCollection, punchesView: punchesView, datePicker: $('.app-punch-date'))
 
-    window.punches = punchesCollection
+

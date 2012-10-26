@@ -5,33 +5,18 @@ title: PunchIt
 .navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
-      -# .row-fluid
-      -#   .span12
-      -#     #app-active-story.alert.alert-info
-      -#       %span.app-project Nada
-      -#       %span.app-story
-      -#       %span.app-start
-      -#       %span.app-stop
-
-      -#       %span.pull-right
-      -#         .btn.btn-mini.btn-inverse.titled(title="Pin this story" data-placement="bottom")
-      -#           %i.icon-star.icon-white
-
-      -#         .btn.btn-mini.btn-inverse.titled(title="Copy the URL for this story" data-placement="bottom")
-      -#           %i.icon-globe.icon-white
-
-      -#         .btn.btn-mini.btn-inverse.titled(title="Mark this story 100% done" data-placement="bottom")
-      -#           %i.icon-fire.icon-white
       .row-fluid
         .span4
-          .div(style="padding: 10px 15px;")
-            .progress
-              .bar.bar-success(style="width: 45%;")
-              .bar.bar-warning(style="width: 10%;")
+          - if false
+            .div(style="padding: 10px 15px;")
+              .progress
+                .bar.bar-success(style="width: 45%;")
+                .bar.bar-warning(style="width: 10%;")
         .span4
-          .div(style="padding: 10px 15px;")
-            %span.badge.badge-success 18
-            %span.badge.badge-warning 4 
+          - if false
+            .div(style="padding: 10px 15px;")
+              %span.badge.badge-success 18
+              %span.badge.badge-warning 4 
         .span4
           %ul.nav.pull-right
             %li
@@ -63,7 +48,25 @@ title: PunchIt
           %li.nav-header All Projects
           %li
             %input.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
+          %li &nbsp;
           %li.app-all-project-stories
+      -# .row-fluid
+      -#   .span12
+      -#     #app-active-story.alert.alert-info
+      -#       %span.app-project Nada
+      -#       %span.app-story
+      -#       %span.app-start
+      -#       %span.app-stop
+
+      -#       %span.pull-right
+      -#         .btn.btn-mini.btn-inverse.titled(title="Pin this story" data-placement="bottom")
+      -#           %i.icon-star.icon-white
+
+      -#         .btn.btn-mini.btn-inverse.titled(title="Copy the URL for this story" data-placement="bottom")
+      -#           %i.icon-globe.icon-white
+
+      -#         .btn.btn-mini.btn-inverse.titled(title="Mark this story 100% done" data-placement="bottom")
+      -#           %i.icon-fire.icon-white
 
 
     #app-punches.span6

@@ -15,7 +15,6 @@ namespace "PunchIt.Collections", (exports) ->
       @each (punch) =>
         projectId = punch.get('project_id')
         project = @projects.get(projectId)
-        punch.setProject(project)
         projects[projectId] = project
 
       _(projects).each (project) =>
