@@ -14,4 +14,3 @@ namespace "PunchIt.Views", (exports) ->
       project = @projects.get $(event.currentTarget).val()
       projectView = new PunchIt.Views.Project(model: project)
       @$('.app-all-project-stories').append(projectView.el)
-      @$('.app-all-project-stories').append("<li><br /><br /></li>")

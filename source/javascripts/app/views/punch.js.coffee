@@ -5,7 +5,6 @@ namespace "PunchIt.Views", (exports) ->
 
     initialize: ({@projects}) =>
       @$el.on('click', @clicked)
-
       @model.on "change", => @refresh()
       @model.on("destroy", => @remove())
       @project().on('storiesLoaded', => @refresh()) if @project()

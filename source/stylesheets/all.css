@@ -29,3 +29,7 @@ body {
   outline: none;
   box-shadow: none;
 }
+
+.nav-list .project {
+  margin-bottom: 22px;
+}

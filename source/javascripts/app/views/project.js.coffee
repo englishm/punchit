@@ -1,11 +1,10 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Project extends Backbone.View
     tagName: "ul"
-    className: "nav nav-list"
+    className: "nav nav-list well project well-small"
 
     events:
       "click app-pick": "projectClicked"
-
 
     initialize: =>
       if @model.hasStories()

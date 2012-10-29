@@ -11,9 +11,12 @@ namespace "PunchIt.Views", (exports) ->
 
       $(document).on "keypress", (event) =>
         if event.which == 0
-          @clearModel()
+          @deactivateModel()
         else if event.which == 13
           PunchIt.Events.trigger "savePunch"
+        else if event.which == 8 and event.altKey
+          @destroyModel()
+          return false
 
       #this should be moved to a DAY view that doesn't exist or punches?
       $('.app-time').on 'click', (event) =>
@@ -23,32 +26,36 @@ namespace "PunchIt.Views", (exports) ->
           PunchIt.Events.trigger "stopTime", $(event.currentTarget).data('time')
 
     punchActivated: (punch) =>
-      @clearModel()
+      @deactivateModel()
 
       @model = punch
       @model.activate()
-      @model.on("deactivate", @clearModel)
+      @model.on("deactivate", @deactivateModel)
 
-    clearModel: =>
+    deactivateModel: =>
       if @model and @model.isNew()
         @model.destroy()
       else if @model
-        @model.off("deactivate", @clearModel)
+        @model.off("deactivate", @deactivateModel)
         @model.deactivate()
 
       @model = null
 
+    destroyModel: =>
+      if @model
+        @model.destroy()
+
+      @model = null
+
     projectActivated: (project) =>
-      return unless @model
       return if project.hasStories()
+      @createDefault(setDefaults: true)
 
       console.log "update punch"
       @model.setStory(null, project.id)
 
     storyActivated: (story) =>
-      return unless @model
-      console.log "updating story to"
-      console.log story
+      @createDefault(setDefaults: true)
       @model.setStory(story.id, story.project_id())
 
     startPicked: (time) =>
@@ -62,5 +69,16 @@ namespace "PunchIt.Views", (exports) ->
     createDefault: =>
       return unless @model == null
       punch = new PunchIt.Models.Punch(date: @datePicker.val())
+      if arguments and arguments[0] and arguments[0].setDefaults
+        lastPunch = @punchesCollection.max (punch) =>
+          punch.get('stop')
+
+        if lastPunch
+          nextPunchStart = lastPunch.get('stop')
+        else
+          nextPunchStart = 8
+
+        punch.setStart(nextPunchStart)
+
       @punchesCollection.add(punch)
       @punchActivated(punch)
