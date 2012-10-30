@@ -10,10 +10,9 @@ title: PunchIt
           -# %span(style="padding: 10px 15px;")
           -#   %span.badge.badge-success.app-hours-billable
           -#   %span.badge.badge-warning.app-hours-non-billable
-          %span(style="padding: 10px 15px;")
-            .progress
-              .bar.bar-success.app-hours-billable
-              .bar.bar-warning.app-hours-non-billable
+          .progress
+            .bar.bar-success.app-hours-billable
+            .bar.bar-warning.app-hours-non-billable
         .span4
           %ul.nav.pull-right
             %li#app-day-summary
@@ -38,24 +37,32 @@ title: PunchIt
 .container-fluid
   .row-fluid 
     .span5
-      .row
-        .side.span5(data-spy="affix")
-          .row
-            .offset1.span4
-              #app-date
-                %input.input-small.visible-phone.app-punch-date{value: Date.today, type: "input"}
-                .hidden-phone
-                  #app-datepicker
-          .well.well-small
-            %ul#app-all-projects.nav.nav-list
-              %li.nav-header All Projects
-              %li
+      .navigation(data-spy="affix")
+        #app-date(style="width: 100%")
+          %input.input-small.visible-phone.app-punch-date{value: Date.today, type: "input"}
+          .hidden-phone
+            #app-datepicker
+        .tabbable
+          %ul.nav.nav-tabs
+            %li.active
+              %a(data-toggle='tab' href='#all-projects')
+                All Projects
+            %li
+              %a(href='#pinned-projects' data-toggle='tab')
+                Pinned Projects
+            %li
+              %a(href='#recent-projects' data-toggle='tab')
+                Recent Projects
+          .tab-content
+            .tab-pane.active#all-projects
+              #app-all-projects
                 %input.input-punchit.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
-              %li.divider.app-stories-placeholder
-              %li.divider
-              %li.nav-header Pinned Projects
-              %li#app-pinned-projects
-              %li.divider
+                .app-stories-placeholder
+            .tab-pane#pinned-projects
+              #app-pinned-projects
+
+            .tab-pane#recent-projects
+              #app-recent-projects
 
     #app-punches.span7
       - if false

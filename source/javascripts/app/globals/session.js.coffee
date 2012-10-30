@@ -7,14 +7,14 @@ namespace "PunchIt.Session", (exports) ->
     PunchIt.Events.trigger('changed:employeeId', id)
 
   exports.bootstrap = =>
-    return if $.jStorage.get('pinnedProjectIds')
+    unless $.jStorage.get('pinnedProjectIds')
+      general = 1
+      lunch = 30
+      vacation = 18
+      holiday = 17
 
-    general = 1
-    lunch = 30
-    vacation = 18
-    holiday = 17
+      $.jStorage.set('pinnedProjectIds', [general, lunch, vacation, holiday])
 
-    $.jStorage.set('pinnedProjectIds', [general, lunch, vacation, holiday])
-
-    dustinsId = 31
-    @setEmployeeId(dustinsId)
+    unless $.jStorage.get('employeeId')
+      dustinsId = 31
+      $.jStorage.set 'employeeId', dustinsId
