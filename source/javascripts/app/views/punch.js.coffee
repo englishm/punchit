@@ -40,7 +40,7 @@ namespace "PunchIt.Views", (exports) ->
       # can this be a label-* match? 
       @$el.removeClass("label-default label-success label-info label-warning")
       @$el.addClass("label-#{@type()}")
-      @$el.attr('title', @model.get('notes'))
+      @.$('.app-notes').val(@model.get('notes'))
 
       if @project()
         @.$('.app-project').text(@project().fullName())
@@ -57,4 +57,4 @@ namespace "PunchIt.Views", (exports) ->
       @$el.addClass("app-punch")
       @$el.attr('rel', 'tooltip')
       @$el.html("<p><span class='app-project'></span> <span class='app-story'></span></p><input type='text' class='app-notes notes'  />")
-      @.$('.app-save').on('click', @save)
+      #@.$('.app-save').on('click', @save)

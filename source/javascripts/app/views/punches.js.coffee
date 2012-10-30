@@ -1,6 +1,6 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Punches extends Backbone.View
-    initialize: ({@projects}) =>
+    initialize: ({@projects, @employee}) =>
       @collection.url = "/employees/#{@employeeId()}/punches"
 
       @datePicker = $('.app-punch-date')
@@ -10,17 +10,18 @@ namespace "PunchIt.Views", (exports) ->
       @collection.on('add', @updateViews)
       @collection.on('change', @updateViews)
 
-      @views = {}
-      $('.app-employee').on('changeData', @updatePunches)
-      @updatePunches()
+      PunchIt.Events.on("changed:employeeId", @updatePunches)
 
-    employeeId: =>
-      $('.app-employee').data('employee-id')
+      @views = {}
+      @updatePunches()
 
     updatePunches: =>
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
       @collection.loadPunches()
       @collection.url = "/employees/#{@employeeId()}/punches"
+
+    employeeId: =>
+      PunchIt.Session.getEmployeeId()
 
     addPunch: (view, start, stop) =>
       padding = 3

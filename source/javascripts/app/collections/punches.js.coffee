@@ -19,3 +19,23 @@ namespace "PunchIt.Collections", (exports) ->
 
       _(projects).each (project) =>
         project.fetchStories()
+
+    billable: =>
+      billableTotal = 0
+
+      @each (punch) =>
+        project = @projects.get(punch.get('project_id'))
+        if project and project.get('billable')
+          billableTotal = billableTotal + punch.duration()
+
+      billableTotal
+
+    nonbillable: =>
+      nonBillableTotal = 0
+
+      @each (punch) =>
+        project = @projects.get(punch.get('project_id'))
+        if project and !project.get('billable') and !project.get('personal')
+          nonBillableTotal = nonBillableTotal + punch.duration()
+
+      nonBillableTotal

@@ -1,21 +1,21 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Project extends Backbone.View
-    tagName: "ul"
-    className: "nav nav-list well project well-small"
+    tagName: "li"
+    className: "project"
 
     events:
       "click app-pick": "projectClicked"
 
     initialize: =>
       if @model.hasStories()
-        $(@el).append("<li class='nav-header app-project'>#{@model.fullName()}</li>")
-        $(@el).append('<li><input class="app-stories" type="hidden" /></li>')
+        #$(@el).append("<li class='nav-header app-project'>#{@model.fullName()}</li>")
+        $(@el).html('<input class="app-stories input-xxlarge" type="hidden" />')
 
         @model.on("storiesLoaded", @populateStories)
         @model.fetchStories()
         @$('.app-stories').on("change", @storyPicked)
       else
-        $(@el).append("<li class='nav-header app-project'>#{@model.fullName()}<span class='btn btn-mini pull-right'><i class='icon-share-alt'></i></span></li>")
+        $(@el).html("<a><span class='btn btn-mini'><i class='icon-share-alt'></i></span>#{@model.fullName()}</a>")
         $(@el).on('click', => @projectClicked())
 
 
@@ -32,5 +32,5 @@ namespace "PunchIt.Views", (exports) ->
       @model.stories.each (story) =>
         data.push(id: story.id, text: story.get('name')) unless story.completed()
 
-      $storiesTypeahead = @.$('.app-stories').select2(width: "resolve", placeholder: "Search for a story for #{@model.get('fullName')}", data: data)
+      $storiesTypeahead = @.$('.app-stories').select2(width: "100%", placeholder: "Search for a story for #{@model.fullName()}", data: data)
 

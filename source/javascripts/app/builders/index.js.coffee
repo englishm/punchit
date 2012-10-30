@@ -1,10 +1,9 @@
 $ =>
-  general = 1
-  lunch = 30
-  vacation = 18
-  holiday = 17
-
-  pinned_project_ids = [general, lunch, vacation, holiday]
+  #TODO this should be based on 8am or current time
+  # 5 per hour that it is
+  # 
+  window.scrollTo(0,1000)
+  PunchIt.Session.bootstrap()
 
   #date finder
   # $('.app-punch-date').datepicker('show', format: 'yyyy-mm-dd')
@@ -13,13 +12,19 @@ $ =>
   $('.titled').tooltip()
 
   customersCollection = new PunchIt.Collections.Customers()
-  projectsCollection = new PunchIt.Collections.Projects(customers: customersCollection)
+  employeesCollection = new PunchIt.Collections.Employees()
+  projectsCollection  = new PunchIt.Collections.Projects(customers: customersCollection)
 
   projectsCollection.on "reset", =>
-    employeesCollection = new PunchIt.Collections.Employees()
-    employeesView = new PunchIt.Views.Employees(collection: employeesCollection, el: '.app-employee')
     employeesCollection.fetch()
 
+  employeesCollection.on "reset", =>
+    employeesView = new PunchIt.Views.EmployeesModal(collection: employeesCollection, el: '#app-employees-modal')
+    employeesView.render()
+
+    activeEmployee = employeesCollection.get(PunchIt.Session.getEmployeeId())
+    activeEmployeeView = new PunchIt.Views.Employee(model: activeEmployee, el: '.app-employee')
+    activeEmployeeView.render()
 
     allProjectsView = new PunchIt.Views.AllProjects(projects: projectsCollection, el: $('#app-all-projects'))
     allProjectsView.render()
@@ -28,10 +33,15 @@ $ =>
     punchesCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
     punchesView = new PunchIt.Views.Punches(projects: projectsCollection, collection: punchesCollection, el: '#app-punches')
 
+    daySummary = new PunchIt.Views.DaySummary(collection: punchesCollection, el: $('#app-day-summary'))
+
+    punchesWeekCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
+    weekSummary = new PunchIt.Views.WeekSummary(collection: punchesWeekCollection, el: $('#app-week-summary'))
+
     newPunchView = new PunchIt.Views.NewPunch(punchesCollection: punchesCollection, punchesView: punchesView, datePicker: $('.app-punch-date'))
 
-    _(pinned_project_ids).each (id) =>
+    _($.jStorage.get('pinnedProjectIds')).each (id) =>
       project = projectsCollection.get id
       projectView = new PunchIt.Views.Project(model: project)
-      @$('#app-pinned-projects').append(projectView.el)
+      @$('#app-pinned-projects').after(projectView.el)
 

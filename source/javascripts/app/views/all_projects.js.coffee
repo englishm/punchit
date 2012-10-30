@@ -8,9 +8,10 @@ namespace "PunchIt.Views", (exports) ->
       @projects.each (project) =>
         data.push(id: project.id, text: project.fullName()) if project.isPunchable()
 
-      @$('.app-all-projects-typeahead').select2 width: "resolve", placeholder: "Search for a project", data: data
+      @$('.app-all-projects-typeahead').select2 width: "100%", placeholder: "Search for a project", data: data
 
     projectPicked: (event) =>
       project = @projects.get $(event.currentTarget).val()
       projectView = new PunchIt.Views.Project(model: project)
-      @$('.app-all-project-stories').append(projectView.el)
+
+      @$('.app-stories-placeholder').after(projectView.el)

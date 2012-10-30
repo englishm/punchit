@@ -9,14 +9,17 @@ namespace "PunchIt.Views", (exports) ->
       PunchIt.Events.on "projectActivated", @projectActivated
       PunchIt.Events.on "punchClicked", @punchActivated
 
+
+      #TODO: work with Karlin on OS detection 
       $(document).on "keypress", (event) =>
-        if event.which == 0
+        if event.keyCode == 27
           @deactivateModel()
-        else if event.which == 13
-          PunchIt.Events.trigger "savePunch"
-        else if event.which == 8 and event.altKey
+        else if event.keyCode == 8 and event.altKey
           @destroyModel()
           return false
+        # else if event.which == 13
+        # Not sure what to do with enter
+        #   PunchIt.Events.trigger "savePunch"
 
       #this should be moved to a DAY view that doesn't exist or punches?
       $('.app-time').on 'click', (event) =>

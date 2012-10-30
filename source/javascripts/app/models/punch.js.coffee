@@ -14,6 +14,9 @@ namespace "PunchIt.Models", (exports) ->
       @trigger("change")
       @trigger("deactivate")
 
+    duration: =>
+      @get('stop') - @get('start')
+
     setStory: (story_id, project_id) =>
       @set
         project_id: project_id
