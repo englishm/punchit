@@ -24,23 +24,18 @@ namespace "PunchIt.Models", (exports) ->
 
     setStart: (time) =>
       if @get('stop') and time < @get('stop')
-        console.log "setting start: #{time}"
         @set
           start: time
       else
-        console.log "setting stop & start: #{time + .25} to #{time}"
-        console.log @
         @set
           start: time
           stop: time + .25
 
     setStop: (time) =>
       if @get('start') and time > @get('start')
-        console.log "setting stop: #{time}"
         @set
           stop: time
       else
-        console.log "setting start & stop: #{time - .25} to #{time}"
         @set
           stop: time
           start: time - .25

@@ -1,19 +1,41 @@
-
-
-/* add @media */
 body { padding-top: 60px; }
+
 @media screen and (max-width: 979px) {
   body { padding-top: 0px; }
 }
 
-#daily-punches .punch {
-  position: absolute;
-  left: 50px;
-  width: 75%;
+.punches {
+  position: relative;
 }
 
-#daily-punches {
-  position: relative;
+.punches .punch {
+  position: absolute;
+  left: 50px;
+  width: 85%;
+}
+
+
+.punch.active {
+  opacity: .7;
+}
+
+.punch .punch-controls {
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.punch:hover .punch-controls {
+  opacity: 1;
+}
+
+.punch.active .punch-controls {
+  opacity: 1;
+}
+
+.punch .controls {
+  display: none;
 }
 
 .punch .notes {

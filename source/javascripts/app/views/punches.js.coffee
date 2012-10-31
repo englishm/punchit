@@ -1,6 +1,6 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Punches extends Backbone.View
-    initialize: ({@projects, @employee}) =>
+    initialize: ({@projects, @calendarView}) =>
       @collection.url = "/employees/#{@employeeId()}/punches"
 
       @datePicker = $('.app-punch-date')
@@ -15,6 +15,17 @@ namespace "PunchIt.Views", (exports) ->
       @views = {}
       @updatePunches()
 
+      # PunchIt.Events.on "startTime", @startPicked
+      PunchIt.Events.on "stopChanged", @stopChanged
+      PunchIt.Events.on "startChanged", @startChanged
+
+      PunchIt.Events.on "startStopChanged", @startStopChanged
+
+      PunchIt.Events.on "storyActivated", @storyActivated
+      PunchIt.Events.on "projectActivated", @projectActivated
+      #PunchIt.Events.on "punchClicked", @punchActivated
+      
+
     updatePunches: =>
       @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
       @collection.loadPunches()
@@ -22,18 +33,6 @@ namespace "PunchIt.Views", (exports) ->
 
     employeeId: =>
       PunchIt.Session.getEmployeeId()
-
-    addPunch: (view, start, stop) =>
-      padding = 3
-      ticksInHour = 4
-      tickHeight = 38
-
-      ticks = (stop - start) / .25
-
-      $el = $(view.el)
-      $el.css('top', "#{padding + ((start * ticksInHour) * tickHeight)}px")
-      $el.css("height", "#{(tickHeight * ticks) - 2*padding}px")
-      $('.punch-table .punches').append($el)
 
     addModel: (model) =>
       @collection.add model
@@ -47,11 +46,10 @@ namespace "PunchIt.Views", (exports) ->
           @views[punch.cid] = new PunchIt.Views.Punch(model: punch, projects: @projects)
           @views[punch.cid].render()
 
-        @addPunch(@views[punch.cid], start, stop)
+        @calendarView.addEditablePunch($(@views[punch.cid].el), start, stop)
 
       #tell all the projects to get their stories so we can assume a project has a story
       _(@collection.pluck('project_id')).uniq (id) =>
-        console.log "got #{id}"
         @projects.get(id).fetchStories()
 
     refresh: =>
@@ -60,5 +58,43 @@ namespace "PunchIt.Views", (exports) ->
 
       @updateViews()
 
+    projectActivated: (project) =>
+      return if project.hasStories()
+      @setActivePunch(project_id: project.id, story_id: null)
 
+    storyActivated: (story) =>
+      @setActivePunch(project_id: story.project_id(), story_id: story.id)
+
+    stopChanged: (stopAdjust) =>
+      punch = @collection.activePunch()
+      stop = punch.get('stop')
+      newStop = stop + stopAdjust
+      @setActivePunch(stop: newStop)
+
+    startChanged: (startAdjust) =>
+      punch = @collection.activePunch()
+      start = punch.get('start')
+      newStart = start + startAdjust
+      @setActivePunch(start: newStart)
+
+    startStopChanged: (start, stop) =>
+      #TODO figure out what to do with the active punch
+      punch = @collection.activePunch()
+      punch.deactivate() if punch
+
+      punch = @createDefault()
+      punch.set(start: start, stop: stop)
+
+    createDefault: =>
+      punch = new PunchIt.Models.Punch(date: @datePicker.val())
+      punch.setStart(@collection.nextStartTime(@datePicker.val()))
+      @collection.add(punch)
+      punch.activate()
+      punch
+
+    setActivePunch: (newAttributes) =>
+      punch = @collection.activePunch()
+      punch = @createDefault() unless punch
+      punch.save newAttributes, success: =>
+        punch.deactivate()
 

@@ -20,6 +20,10 @@ namespace "PunchIt.Collections", (exports) ->
       _(projects).each (project) =>
         project.fetchStories()
 
+    activePunch: =>
+      @find (punch) =>
+        punch.active
+
     billable: =>
       billableTotal = 0
 
@@ -39,3 +43,13 @@ namespace "PunchIt.Collections", (exports) ->
           nonBillableTotal = nonBillableTotal + punch.duration()
 
       nonBillableTotal
+
+    nextStartTime: (date) =>
+      lastPunch = @max (punch) =>
+        punch.get('stop')
+
+      if lastPunch
+        lastPunch.get('stop')
+      else
+        9
+

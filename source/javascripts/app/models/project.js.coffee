@@ -10,7 +10,6 @@ namespace "PunchIt.Models", (exports) ->
       @stories
 
     fetchStories: =>
-      console.log "fetching projects for #{@id}"
       if !@hasStories
         @trigger("storiesLoaded")
       else if @stories.length > 0

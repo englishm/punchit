@@ -30,18 +30,28 @@ $ =>
     allProjectsView.render()
 
 
+    caldendarView = new PunchIt.Views.Calendar(el: '#app-calendar')
     punchesCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
-    punchesView = new PunchIt.Views.Punches(projects: projectsCollection, collection: punchesCollection, el: '#app-punches')
+    punchesView = new PunchIt.Views.Punches(projects: projectsCollection, calendarView: caldendarView, collection: punchesCollection)
 
     daySummary = new PunchIt.Views.DaySummary(collection: punchesCollection, el: $('#app-day-summary'))
 
     punchesWeekCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
     weekSummary = new PunchIt.Views.WeekSummary(collection: punchesWeekCollection, el: $('#app-week-summary'))
 
-    newPunchView = new PunchIt.Views.NewPunch(punchesCollection: punchesCollection, punchesView: punchesView, datePicker: $('.app-punch-date'))
+    #newPunchView = new PunchIt.Views.NewPunch(punchesCollection: punchesCollection, punchesView: punchesView, datePicker: $('.app-punch-date'))
 
+
+    #TODO: Move this to a pinned projects View/Collection that accpets new pins/removes pins
     _($.jStorage.get('pinnedProjectIds')).each (id) =>
       project = projectsCollection.get id
       projectView = new PunchIt.Views.Project(model: project)
       @$('#app-pinned-projects').after(projectView.el)
 
+   
+
+#TODO SPIKE
+    $('.app-time').droppable()
+    $('.app-time').on('drop', (event, ui) =>
+      console.log ui.draggable
+    )

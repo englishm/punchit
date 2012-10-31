@@ -6,13 +6,13 @@ title: PunchIt
   .navbar-inner
     .container-fluid
       .row-fluid
-        .span4#app-week-summary
-          -# %span(style="padding: 10px 15px;")
-          -#   %span.badge.badge-success.app-hours-billable
-          -#   %span.badge.badge-warning.app-hours-non-billable
+        .span4#app-week-summary(style="padding-top: 6px;")
           .progress
             .bar.bar-success.app-hours-billable
             .bar.bar-warning.app-hours-non-billable
+          -# %span(style="padding: 10px 15px;")
+          -#   %span.badge.badge-success.app-hours-billable
+          -#   %span.badge.badge-warning.app-hours-non-billable
         .span4
           %ul.nav.pull-right
             %li#app-day-summary
@@ -44,15 +44,17 @@ title: PunchIt
             #app-datepicker
         .tabbable
           %ul.nav.nav-tabs
+            %li.nav-header
+              Projects
             %li.active
               %a(data-toggle='tab' href='#all-projects')
-                All Projects
+                All
             %li
               %a(href='#pinned-projects' data-toggle='tab')
-                Pinned Projects
+                Pinned
             %li
               %a(href='#recent-projects' data-toggle='tab')
-                Recent Projects
+                Recent
           .tab-content
             .tab-pane.active#all-projects
               #app-all-projects
@@ -64,46 +66,37 @@ title: PunchIt
             .tab-pane#recent-projects
               #app-recent-projects
 
-    #app-punches.span7
-      - if false
-        .progress
-          .bar.bar-success(style="width: 10%;")
-          .bar.bar-warning(style="width: 5%;")
-          .bar.bar-danger(style="width: 5%;")
-          .bar.bar-success(style="width: 13%;")
-          .bar(style="width: 10%;")
-          .bar.bar-success(style="width: 57%;")
+    .span7
+      #app-calendar.punch-table
+        .punches.app-punches
+          %table.table
+            - times = []
+            - 24.times do |time|
+              - if time == 0
+                - times << {name: "midnight", hour: time}
+              - elsif time == 12 
+                - times << {name: "noon", hour: time}
+              - elsif time > 12
+                - times << {name: "#{time-12}pm", hour: time}
+              - else
+                - times << {name: "#{time}am", hour: time}
 
-      #daily-punches.punch-table
-        .punches
-        %table.table
-          - times = []
-          - 24.times do |time|
-            - if time == 0
-              - times << {name: "midnight", hour: time}
-            - elsif time == 12 
-              - times << {name: "noon", hour: time}
-            - elsif time > 12
-              - times << {name: "#{time-12}pm", hour: time}
-            - else
-              - times << {name: "#{time}am", hour: time}
-
-          - times.each do |time| 
-            - %w(00 25 5 75).each do |minutes|
-              %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}"}
-                %td.span1{class: minutes == "00" ? "hour" : ""}
-                  %small
-                    - if minutes == "00"
-                      = time[:name]
-                    - elsif minutes == "25"
-                      %span.muted
-                        15
-                    - elsif minutes == "5"
-                      %span.muted
-                        30
-                    - elsif minutes == "75"
-                      %span.muted
-                        45
+            - times.each do |time| 
+              - %w(00 25 5 75).each do |minutes|
+                %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}"}
+                  %td.span1{class: minutes == "00" ? "hour" : ""}
+                    %small
+                      - if minutes == "00"
+                        = time[:name]
+                      - elsif minutes == "25"
+                        %span.muted
+                          15
+                      - elsif minutes == "5"
+                        %span.muted
+                          30
+                      - elsif minutes == "75"
+                        %span.muted
+                          45
       
 #app-employees-modal.modal.hide.fade
   .modal-header
