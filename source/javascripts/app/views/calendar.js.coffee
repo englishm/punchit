@@ -2,7 +2,7 @@ namespace "PunchIt.Views", (exports) ->
   class exports.Calendar extends Backbone.View
     initialize: =>
       $('.app-time').on("mousedown", @mousedown).on("mouseup", @mouseup)
-
+      @$el.attr('unselectable', 'on').css('user-select', 'none').on('selectstart', false)
 
       @startTime = null
       @stopTime = null

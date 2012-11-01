@@ -5,7 +5,7 @@ namespace "PunchIt.Views", (exports) ->
 
     initialize: ({@projects}) =>
       @model.on "change", => @refresh()
-      @model.on("destroy", => @remove())
+      @model.on "destroy", => @remove()
 
       @project().on('storiesLoaded', => @refresh()) if @project()
 
@@ -62,10 +62,15 @@ namespace "PunchIt.Views", (exports) ->
           <span class='punch-controls pull-right'>
             <i class='app-remove icon-remove icon-white'></i>
           </span>
-          <span class='app-project'></span>
-          <span class='app-story'></span>
+          <span class='app-info'>
+            <span class='app-project'></span>
+            <span class='app-story'></span>
+          </span>
         </p>
-        <input type='text' class='app-notes notes' placeholder='No Notes' />")
+        <input type='text' class='app-notes notes input-xxlarge' placeholder='No Notes' />")
+
+      @.$('.app-info').on 'click', =>
+        PunchIt.Events.trigger("punchableActivated", @project(), @story())
 
       @.$('.app-remove').on 'click', =>
         @model.destroy()

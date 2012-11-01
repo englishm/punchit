@@ -1,0 +1,62 @@
+body { padding-top: 60px; }
+
+@media screen and (max-width: 979px) {
+  body { padding-top: 0px; }
+}
+
+.punches {
+  position: relative;
+}
+
+.punches .punch {
+  position: absolute;
+  left: 50px;
+  width: 85%;
+  opacity: .8;
+}
+
+.punch .punch-controls {
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.punch:hover .punch-controls {
+  opacity: 1;
+}
+
+.punch .notes {
+  border: none;
+  font-size: 12px;
+  margin: 0px;
+  margin-top: -14px;
+  padding: 0px;
+  background-color: rgba(0,0,0,0);
+  color: white;
+  outline: none;
+  line-height: 12px;
+  box-shadow: none;
+}
+
+.punch .notes:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.nav-list .project {
+  margin-bottom: 22px;
+}
+
+.calendar td.hour {
+  border-top: 1px solid #333333;
+}
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   -ms-user-select: none;
+   user-select: none;
+}
