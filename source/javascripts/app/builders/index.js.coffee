@@ -1,12 +1,12 @@
-$ =>
+# PunchIt.Session.baseURL = "http://localhost:4568"
+PunchIt.Session.baseURL = "https://punchitapi.atomicobject.com"
+
+PunchIt.Session.onAuthenticated =>
   #TODO this should be based on 8am or current time
   # 5 per hour that it is
-  # 
   window.scrollTo(0,1000)
-  PunchIt.Session.bootstrap()
 
-  PunchIt.BaseURL = "http://localhost:4568"
-  #PunchIt.BaseURL = "https://punchitapi.atomicobject.com"
+  PunchIt.Session.bootstrap()
 
   #date finder
   # $('.app-punch-date').datepicker('show', format: 'yyyy-mm-dd')

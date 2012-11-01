@@ -6,6 +6,23 @@ namespace "PunchIt.Session", (exports) ->
     $.jStorage.set 'employeeId', id
     PunchIt.Events.trigger('changed:employeeId', id)
 
+
+  PunchIt.Session.baseURL = "https://punchitapi.atomicobject.com"
+  # PunchIt.Session.baseURL = "http://localhost:4568"
+  # localhost
+  exports.onAuthenticated = (callback) =>
+    throw "PunchIt.Session.BaseURL is NOT set" unless exports.baseURL
+    if exports.baseURL == "http://localhost:4568"
+      callback()
+    else
+      $.ajaxPrefilter (options, originalOptions, jqXHR) =>
+        options.xhrFields =
+          withCredentials: true
+
+      $("<img id='punchitapi-blank-img' src='" + exports.baseURL + "/blank.png?" + Number(new Date()) + "'/>").load(callback).error( =>
+        log("You are not authenticated @ punchitapi.atomicobject.com");
+      ).appendTo($('body'))
+ 
   exports.bootstrap = =>
     unless $.jStorage.get('pinnedProjectIds')
       general = 1

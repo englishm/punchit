@@ -16,9 +16,9 @@ namespace "PunchIt.Views", (exports) ->
 
 
     updatePunches: =>
-      @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
+      @collection.url = "#{PunchIt.Session.baseURL}/employees/#{@employeeId()}/punches?date.gte=#{@datePicker.val()}&date.lte=#{@datePicker.val()}"
       @collection.loadPunches()
-      @collection.url = "/employees/#{@employeeId()}/punches"
+      @collection.url = "#{PunchIt.Session.baseURL}/employees/#{@employeeId()}/punches"
 
     employeeId: =>
       PunchIt.Session.getEmployeeId()

@@ -3,7 +3,7 @@ namespace "PunchIt.Models", (exports) ->
     initialize: =>
       @customer = @collection.getCustomer(@get('customerId'))
       @stories = new PunchIt.Collections.Stories()
-      @stories.url = @get('storiesUrl')
+      @stories.url = "#{PunchIt.Session.baseURL}#{@get('storiesUrl')}"
       @stories.bind("reset", => @trigger("storiesLoaded"))
 
     stories: =>

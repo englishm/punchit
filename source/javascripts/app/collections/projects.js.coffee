@@ -1,7 +1,7 @@
 namespace "PunchIt.Collections", (exports) ->
   class exports.Projects extends Backbone.Collection
     model: PunchIt.Models.Project
-    url: "/projects"
+    url: "#{PunchIt.Session.baseURL}/projects"
 
     initialize: ({@customers}) =>
       @customers.on("reset", @loadUp)
