@@ -15,17 +15,14 @@ namespace "PunchIt.Views", (exports) ->
         @model.fetchStories()
         @$('.app-stories').on("change", @storyPicked)
       else
-        $(@el).html("<a><span class='btn btn-mini'><i class='icon-share-alt'></i></span>#{@model.fullName()}</a>")
+        $(@el).html("<a href='##{@model.id}'>#{@model.fullName()}</a>")
         $(@el).on('click', => @projectClicked())
 
-
-
     storyPicked: (event) =>
-      PunchIt.Events.trigger("storyActivated", @model.stories.get($(event.currentTarget).val()))
+      PunchIt.Events.trigger "punchableActivated", @model, @model.stories.get($(event.currentTarget).val())
 
     projectClicked: =>
-      console.log "picked"
-      PunchIt.Events.trigger "projectActivated", @model
+      PunchIt.Events.trigger "punchableActivated", @model, null
 
     populateStories: =>
       data = []

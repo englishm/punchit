@@ -1,12 +1,27 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.Punch extends Backbone.View
     tagName: "span"
-    className: "label"
+    className: "label punch app-punch"
 
     initialize: ({@projects}) =>
       @model.on "change", => @refresh()
       @model.on("destroy", => @remove())
+
       @project().on('storiesLoaded', => @refresh()) if @project()
+
+      @$el.on 'stopChanged', (event, time) =>
+        newStop = @model.get('stop') + time
+        @model.set(stop: newStop)
+        @save()
+
+      @$el.on 'startChanged', (event, time) =>
+        newstart = @model.get('start') + time
+        @model.set(start: newstart)
+        @save()
+
+    save: =>
+      @model.save()
+
 
     type: =>
       if @model.isNew()
@@ -39,32 +54,26 @@ namespace "PunchIt.Views", (exports) ->
       if @story()
         @.$('.app-story').text(@story().fullName())
       else
-        @.$('.app-story').text()
+        @.$('.app-story').text('')
 
     render: =>
-      @$el.addClass("punch")
-      @$el.addClass("app-punch")
       @$el.attr('rel', 'tooltip')
-      @$el.html("
-        <p>
+      @$el.html("<p>
           <span class='punch-controls pull-right'>
-            <i class='app-activate icon-edit icon-white'></i>
             <i class='app-remove icon-remove icon-white'></i>
           </span>
           <span class='app-project'></span>
           <span class='app-story'></span>
         </p>
-        <input type='text' class='app-notes notes'  />
-      ")
+        <input type='text' class='app-notes notes' placeholder='No Notes' />")
 
-      @.$('.app-activate').on 'click', =>
-        if @model.active
-          @model.deactivate()
-        else
-          @model.activate()
+      @.$('.app-switch-project').on 'click', =>
+        console.log "suck down active story & project"
 
       @.$('.app-remove').on 'click', =>
         @model.destroy()
 
-      @$el.on 'touched', =>
-        @model.activate()
+      @.$('.app-notes').on 'blur', =>
+        @model.set(notes: @.$('.app-notes').val())
+        @save()
+

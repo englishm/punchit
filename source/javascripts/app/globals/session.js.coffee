@@ -18,3 +18,10 @@ namespace "PunchIt.Session", (exports) ->
     unless $.jStorage.get('employeeId')
       dustinsId = 31
       $.jStorage.set 'employeeId', dustinsId
+
+  exports.pinProjectId = (id) =>
+    projects = $.jStorage.get('pinnedProjectIds')
+    if _.indexOf(projects, id) < 0
+      projects.push id
+      $.jStorage.set('pinnedProjectIds', projects)
+

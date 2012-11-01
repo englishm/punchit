@@ -12,6 +12,9 @@ namespace "PunchIt.Views", (exports) ->
 
     projectPicked: (event) =>
       project = @projects.get $(event.currentTarget).val()
-      projectView = new PunchIt.Views.Project(model: project)
 
-      @$('.app-stories-placeholder').after(projectView.el)
+      PunchIt.Events.trigger "punchableActivated", project
+
+      projectView = new PunchIt.Views.Project(model: project)
+      @$('.app-stories-placeholder').append(projectView.el)
+

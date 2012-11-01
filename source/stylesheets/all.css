@@ -12,11 +12,7 @@ body { padding-top: 60px; }
   position: absolute;
   left: 50px;
   width: 85%;
-}
-
-
-.punch.active {
-  opacity: .7;
+  opacity: .8;
 }
 
 .punch .punch-controls {
@@ -28,14 +24,6 @@ body { padding-top: 60px; }
 
 .punch:hover .punch-controls {
   opacity: 1;
-}
-
-.punch.active .punch-controls {
-  opacity: 1;
-}
-
-.punch .controls {
-  display: none;
 }
 
 .punch .notes {
@@ -60,6 +48,15 @@ body { padding-top: 60px; }
   margin-bottom: 22px;
 }
 
-#daily-punches td.hour {
+.calendar td.hour {
   border-top: 1px solid #333333;
+}
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   -ms-user-select: none;
+   user-select: none;
 }

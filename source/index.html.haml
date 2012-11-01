@@ -10,9 +10,6 @@ title: PunchIt
           .progress
             .bar.bar-success.app-hours-billable
             .bar.bar-warning.app-hours-non-billable
-          -# %span(style="padding: 10px 15px;")
-          -#   %span.badge.badge-success.app-hours-billable
-          -#   %span.badge.badge-warning.app-hours-non-billable
         .span4
           %ul.nav.pull-right
             %li#app-day-summary
@@ -29,11 +26,11 @@ title: PunchIt
                 %i.icon-align-justify
               %ul.dropdown-menu
                 %li
-                  %a All Project
+                  %a Old Punchit Links
                 %li
-                  %a Pinned Projects
+                  %a Add Story
                 %li
-                  %a Recent Projects
+                  %a Blah
 .container-fluid
   .row-fluid 
     .span5
@@ -42,15 +39,18 @@ title: PunchIt
           %input.input-small.visible-phone.app-punch-date{value: Date.today, type: "input"}
           .hidden-phone
             #app-datepicker
+        .alert.alert-info#app-new-punch
+          %small 
+            %p.app-project
+            %p.app-story
         .tabbable
           %ul.nav.nav-tabs
-            %li.nav-header
-              Projects
             %li.active
               %a(data-toggle='tab' href='#all-projects')
                 All
             %li
               %a(href='#pinned-projects' data-toggle='tab')
+                %i.icon-heart
                 Pinned
             %li
               %a(href='#recent-projects' data-toggle='tab')
@@ -59,15 +59,14 @@ title: PunchIt
             .tab-pane.active#all-projects
               #app-all-projects
                 %input.input-punchit.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
-                .app-stories-placeholder
+                %ul.app-stories-placeholder.nav.nav-tabs-nav-stacked
             .tab-pane#pinned-projects
-              #app-pinned-projects
-
+              %ul#app-pinned-projects.nav.nav-tabs.nav-stacked
             .tab-pane#recent-projects
               #app-recent-projects
 
     .span7
-      #app-calendar.punch-table
+      #app-calendar.punch-table.calendar
         .punches.app-punches
           %table.table
             - times = []
