@@ -11,7 +11,7 @@ namespace "PunchIt.Session", (exports) ->
   # PunchIt.Session.baseURL = "http://localhost:4568"
   # localhost
   exports.onAuthenticated = (callback) =>
-    throw "PunchIt.Session.BaseURL is NOT set" unless exports.baseURL
+    throw "PunchIt.Session.BaseURL is NOT set" unless PunchIt.Session.baseURL
     if exports.baseURL == "http://localhost:4568"
       callback()
     else
@@ -19,8 +19,8 @@ namespace "PunchIt.Session", (exports) ->
         options.xhrFields =
           withCredentials: true
 
-      $("<img id='punchitapi-blank-img' src='" + exports.baseURL + "/blank.png?" + Number(new Date()) + "'/>").load(callback).error( =>
-        log("You are not authenticated @ punchitapi.atomicobject.com");
+      $("<img id='punchitapi-blank-img' src='" + PunchIt.Session.baseURL + "/blank.png?" + Number(new Date()) + "'/>").load(callback).error( =>
+        log("You are not authenticated @ punchitapi.atomicobject.com")
       ).appendTo($('body'))
  
   exports.bootstrap = =>

@@ -1,11 +1,12 @@
 ---
-title: PunchIt
+title: Punch Alpha
 ---
 
 .navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
       .row-fluid
+        %span.brand Punch Alpha
         .span4#app-week-summary(style="padding-top: 6px;")
           .progress
             .bar.bar-success.app-hours-billable
@@ -26,11 +27,7 @@ title: PunchIt
                 %i.icon-align-justify
               %ul.dropdown-menu
                 %li
-                  %a Old Punchit Links
-                %li
-                  %a Add Story
-                %li
-                  %a Blah
+                  %a(href="http://punchit.atomicobject.com/") Old Punchit
 .container-fluid
   .row-fluid 
     .span5
@@ -44,7 +41,7 @@ title: PunchIt
             %p.app-project
             %p.app-story
         .tabbable
-          %ul.nav.nav-tabs
+          %ul.nav.nav-pills
             %li.active
               %a(data-toggle='tab' href='#all-projects')
                 All

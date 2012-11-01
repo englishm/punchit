@@ -63,11 +63,12 @@ namespace "PunchIt.Views", (exports) ->
             <i class='app-remove icon-remove icon-white'></i>
           </span>
           <span class='app-info'>
+            <i class='icon-map-marker icon-white'></i>
             <span class='app-project'></span>
             <span class='app-story'></span>
           </span>
         </p>
-        <input type='text' class='app-notes notes input-xxlarge' placeholder='No Notes' />")
+        <input type='text' class='app-notes notes' placeholder='No Notes' />")
 
       @.$('.app-info').on 'click', =>
         PunchIt.Events.trigger("punchableActivated", @project(), @story())
