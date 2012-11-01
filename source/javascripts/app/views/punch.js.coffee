@@ -67,9 +67,6 @@ namespace "PunchIt.Views", (exports) ->
         </p>
         <input type='text' class='app-notes notes' placeholder='No Notes' />")
 
-      @.$('.app-switch-project').on 'click', =>
-        console.log "suck down active story & project"
-
       @.$('.app-remove').on 'click', =>
         @model.destroy()
 

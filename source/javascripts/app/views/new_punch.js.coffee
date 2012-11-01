@@ -35,13 +35,8 @@ namespace "PunchIt.Views", (exports) ->
         @$el.addClass('alert-info')
 
       if @project
-        console.log "got here #{@project.fullName()}"
-        @$('.app-project').html("<span class='btn btn-mini'>
-          <i class='icon-heart'></i></span> #{@project.fullName()}
-          ")
-        console.log @$('.app-project')
+        @$('.app-project').html("<span class='btn btn-mini'><i class='icon-heart'></i></span> #{@project.fullName()}")
       else
-        console.log "no got here"
         @.$('.app-project').text('')
 
       if @story

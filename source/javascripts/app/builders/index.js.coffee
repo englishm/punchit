@@ -5,6 +5,9 @@ $ =>
   window.scrollTo(0,1000)
   PunchIt.Session.bootstrap()
 
+  PunchIt.BaseURL = "http://localhost:4568"
+  #PunchIt.BaseURL = "https://punchitapi.atomicobject.com"
+
   #date finder
   # $('.app-punch-date').datepicker('show', format: 'yyyy-mm-dd')
   $('.app-punch-date').datepicker('show')
