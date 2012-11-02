@@ -38,6 +38,7 @@ namespace "PunchIt.Views", (exports) ->
           @.$('.app-story').text('')
       else
         @.$('.app-project').text('')
+        @.$('.app-story').text('')
 
     ready: =>
       (@project and !@project.hasStories()) or  (@project and @story)
