@@ -31,15 +31,18 @@ title: Punch Alpha
 .container-fluid
   .row-fluid 
     .span5
-      .navigation(data-spy="affix")
-        #app-date(style="width: 100%")
+      .navigation.span5(data-spy="affix")
+        #app-date
           %input.input-small.visible-phone.app-punch-date{value: Date.today, type: "input"}
           .hidden-phone
             #app-datepicker
-        .alert.alert-info#app-new-punch
-          %small 
-            %p.app-project
-            %p.app-story
+        %br
+        .alert#app-new-punch
+          %p.app-project 
+            %strong Pick a punchable to ativate!
+          %p.app-story
+            %small Click the day calendar to place your punchable.
+        %br
         .tabbable
           %ul.nav.nav-pills
             %li.active
@@ -55,10 +58,15 @@ title: Punch Alpha
           .tab-content
             .tab-pane.active#all-projects
               #app-all-projects
-                %input.input-punchit.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
-                %ul.app-stories-placeholder.nav.nav-tabs-nav-stacked
+                %ul.nav.nav-list
+                  %li.nav-header
+                    All Projects List
+                  %li 
+                    %input.input-punchit.app-all-projects-typeahead(type="hidden" placeholder="All Projects")
+                  %li
+                    %ul.app-stories-placeholder.nav.nav-list
             .tab-pane#pinned-projects
-              %ul#app-pinned-projects.nav.nav-tabs.nav-stacked
+              %ul#app-pinned-projects.nav.nav-list
             .tab-pane#recent-projects
               #app-recent-projects
 

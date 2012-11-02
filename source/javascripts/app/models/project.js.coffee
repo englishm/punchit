@@ -36,6 +36,9 @@ namespace "PunchIt.Models", (exports) ->
       @get('opportunity_identifier') != null
 
     parse: (rawResponse) =>
-      rawResponse["storiesUrl"] = rawResponse['stories'].$ref
+      if rawResponse['phase']
+        rawResponse["storiesUrl"] = "#{rawResponse['phase'].$ref}/stories"
+      else
+        rawResponse["storiesUrl"] = rawResponse['stories'].$ref
       rawResponse["customerId"] = rawResponse["customer"].id
       rawResponse

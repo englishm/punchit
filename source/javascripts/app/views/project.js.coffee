@@ -29,5 +29,9 @@ namespace "PunchIt.Views", (exports) ->
       @model.stories.each (story) =>
         data.push(id: story.id, text: story.get('name')) unless story.completed()
 
-      $storiesTypeahead = @.$('.app-stories').select2(width: "100%", placeholder: "Search for a story for #{@model.fullName()}", data: data)
+      $storiesTypeahead = @.$('.app-stories').select2
+        width: "100%"
+        placeholder: "Search for a story for #{@model.fullName()}"
+        data: data
+        allowClear: true
 

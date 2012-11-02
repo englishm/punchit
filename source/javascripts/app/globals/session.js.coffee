@@ -8,7 +8,7 @@ namespace "PunchIt.Session", (exports) ->
 
 
   PunchIt.Session.baseURL = "https://punchitapi.atomicobject.com"
-  # PunchIt.Session.baseURL = "http://localhost:4568"
+  #PunchIt.Session.baseURL = "http://localhost:4568"
   # localhost
   exports.onAuthenticated = (callback) =>
     throw "PunchIt.Session.BaseURL is NOT set" unless PunchIt.Session.baseURL

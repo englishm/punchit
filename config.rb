@@ -5,14 +5,7 @@ activate :middle_proxy, [
   {path: "/projects", to: api_url},
   {path: "/customers", to: api_url},
   {path: "/stories", to: api_url}]
-
-# api_url = "punchitapi.atomicobject.com"
-# activate :middle_proxy, [
-#   {path: "/employees", to: api_url, secure: true}, 
-#   {path: "/projects", to: api_url, secure: true},
-#   {path: "/customers", to: api_url, secure: true},
-#   {path: "/stories", to: api_url, secure: true}]
-# 
+ 
 #activate :livereload
 
 ###

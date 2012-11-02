@@ -28,22 +28,16 @@ namespace "PunchIt.Views", (exports) ->
       @refresh()
 
     refresh: =>
-      @$el.removeClass('alert-success alert-info')
+      @$el.removeClass('alert-success')
       if @ready()
         @$el.addClass('alert-success')
-      else
-        @$el.addClass('alert-info')
-
-      if @project
-        @$('.app-project').html("<span class='btn btn-mini'><i class='icon-heart'></i></span> #{@project.fullName()}")
+        @$('.app-project').html("<i class='icon-heart'></i> #{@project.fullName()}")
+        if @story
+          @.$('.app-story').text(@story.fullName())
+        else
+          @.$('.app-story').text('')
       else
         @.$('.app-project').text('')
-
-      if @story
-        @.$('.app-story').text(@story.fullName())
-      else
-        @.$('.app-story').text('')
-
 
     ready: =>
       (@project and !@project.hasStories()) or  (@project and @story)
