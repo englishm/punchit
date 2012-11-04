@@ -31,7 +31,11 @@ namespace "PunchIt.Views", (exports) ->
       @$el.removeClass('alert-success')
       if @ready()
         @$el.addClass('alert-success')
-        @$('.app-project').html("<i class='icon-heart'></i> #{@project.fullName()}")
+        @$('.app-project').html("
+          <span class='controls pull-right'>
+            <i class='icon-heart'></i>
+            <i class='icon-globe'></i>
+          </span> #{@project.fullName()}")
         if @story
           @.$('.app-story').text(@story.fullName())
         else

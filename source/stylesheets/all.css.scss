@@ -1,0 +1,88 @@
+body { padding-top: 60px; }
+
+@media screen and (max-width: 979px) {
+  body { padding-top: 0px; }
+}
+
+.typeahead {
+  /* to get these little shits to show in a modal */ 
+  z-index:  1051 !important; 
+}
+
+
+.punches {
+  position: relative;
+
+  .punch {
+    position: absolute;
+    left: 50px;
+    width: 85%;
+    opacity: .6;
+
+    .punch-controls {
+      opacity: 0;
+      transition: opacity .25s ease-in-out;
+      -moz-transition: opacity .25s ease-in-out;
+      -webkit-transition: opacity .25s ease-in-out;
+    }
+
+    &:hover {
+      .punch-controls {
+        opacity: 1;
+      }
+    }
+
+    .app-info { 
+      cursor: pointer;
+    }
+
+
+    .notes {
+      border: none;
+      font-size: 12px;
+      margin: 0px;
+      margin-top: -14px;
+      padding: 0px;
+      background-color: rgba(0,0,0,0);
+      color: white;
+      outline: none;
+      line-height: 12px;
+      box-shadow: none;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+
+.nav-list .project {
+  margin-bottom: 22px;
+}
+
+.calendar {
+  td.hour {
+    border-top: 1px solid #333333;
+  }
+
+  .punch {
+    padding: .1% 4px;
+
+    -webkit-box-shadow: 2px 2px 5px rgba(70, 70, 70, 0.50);
+    -moz-box-shadow:    2px 2px 5px rgba(70, 70, 70, 0.50);
+    box-shadow:         2px 2px 5px rgba(70, 70, 70, 0.50);
+
+    @for $i from 1 through 100 {
+      &[start="#{$i*.25}"] { 
+        top: (1% * $i) + .05%; 
+      }
+
+      &[duration="#{$i*.25}"] { 
+        height: (1% * $i) - .1%; 
+      }
+    }
+  }
+}

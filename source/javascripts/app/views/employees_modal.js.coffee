@@ -1,15 +1,21 @@
 namespace "PunchIt.Views", (exports) ->
   class exports.EmployeesModal extends Backbone.View
-    #TODO: This should work better with firing events and hooking things with callbacks on show taking a closure
+    #TODO: This should work better by taking a closure when the modal is shown.
     initialize: () =>
       $('.app-all-employees-typeahead').on("change", @triggerTypeAhead)
+      @$el.on 'show', @modalShown
+      @$el.modal('show') unless PunchIt.Session.getEmployeeId()
+
+
+    modalShown: =>
+      $('.app-all-employees-typeahead').focus()
 
     triggerTypeAhead: =>
       $typeAhead = $('input.app-all-employees-typeahead')
-      PunchIt.Events.trigger "employeePicked", @collection.get($typeAhead.val())
+      employee = @collection.detect (employee) =>
+        employee.get('name') == $typeAhead.val()
+      PunchIt.Events.trigger "employeePicked", employee
+      @$el.modal('hide')
 
     render: =>
-      data = []
-      @collection.each (employee) =>
-        data.push(id: employee.id, text: employee.get('name'))
-      $('.app-all-employees-typeahead').select2 width: "100%", placeholder: "Pick yourself", data: data
+      $('.app-all-employees-typeahead').typeahead source: @collection.pluck('name')

@@ -24,20 +24,25 @@ namespace "PunchIt.Collections", (exports) ->
       @find (punch) =>
         punch.active
 
-    billable: =>
-      billableTotal = 0
-
+    each_for_date: (date, yields) =>
       @each (punch) =>
+        if date
+          yields punch if date.equals(Date.parse(punch.get('date')))
+        else
+          yields punch
+
+    billable: (date) =>
+      billableTotal = 0
+      @each_for_date date, (punch) =>
         project = @projects.get(punch.get('project_id'))
         if project and project.get('billable')
           billableTotal = billableTotal + punch.duration()
 
       billableTotal
 
-    nonbillable: =>
+    nonbillable: (date) =>
       nonBillableTotal = 0
-
-      @each (punch) =>
+      @each_for_date date, (punch) =>
         project = @projects.get(punch.get('project_id'))
         if project and !project.get('billable') and !project.get('personal')
           nonBillableTotal = nonBillableTotal + punch.duration()

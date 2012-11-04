@@ -9,7 +9,10 @@ namespace "PunchIt.Views", (exports) ->
       @refresh()
 
     refresh: =>
-      @.$('.app-name').html(@model.get('name'))
+      if @model
+        @.$('.app-name').text(@model.get('name'))
+      else
+        @.$('.app-name').text("Click here to login.")
 
     render: =>
       @refresh()

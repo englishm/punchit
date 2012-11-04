@@ -7,9 +7,12 @@ namespace "PunchIt.Views", (exports) ->
       @collection.on("add", @refresh)
 
     refresh: =>
-      @.$('.app-hours-billable').text(@collection.billable())
-      @.$('.app-hours-non-billable').text(@collection.nonbillable())
-      @.$('.app-hours-total').text(@collection.billable() + @collection.nonbillable())
+      billable = @collection.billable(PunchIt.Session.getDate())
+      nonbillable = @collection.nonbillable(PunchIt.Session.getDate())
+
+      @.$('.app-hours-billable').text(billable)
+      @.$('.app-hours-non-billable').text(nonbillable)
+      @.$('.app-hours-total').text(billable + nonbillable)
 
     render: =>
       @refresh()

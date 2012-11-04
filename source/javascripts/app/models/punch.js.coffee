@@ -17,7 +17,6 @@ namespace "PunchIt.Models", (exports) ->
     duration: =>
       @get('stop') - @get('start')
 
-
     parse: (raw) =>
       id: raw['id']
       date: raw['date']
@@ -26,26 +25,3 @@ namespace "PunchIt.Models", (exports) ->
       notes: raw['notes']
       start: parseFloat(raw['start'])
       stop: parseFloat(raw['stop'])
-
-    # setStory: (story_id, project_id) =>
-    #   @set
-    #     project_id: project_id
-    #     story_id: story_id
-
-    # setStart: (time) =>
-    #   if @get('stop') and time < @get('stop')
-    #     @set
-    #       start: time
-    #   else
-    #     @set
-    #       start: time
-    #       stop: time + .25
-
-    # setStop: (time) =>
-    #   if @get('start') and time > @get('start')
-    #     @set
-    #       stop: time
-    #   else
-    #     @set
-    #       stop: time
-    #       start: time - .25

@@ -20,6 +20,7 @@ namespace "PunchIt.Views", (exports) ->
 
       @.$('.badge.app-hours-billable').text(billable)
       @.$('.badge.app-hours-non-billable').text(nonbillable)
+      @.$('.badge.app-hours-total').text(billable + nonbillable)
 
     render: =>
       @refresh()

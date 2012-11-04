@@ -1,6 +1,9 @@
 namespace "PunchIt.Session", (exports) ->
   exports.getEmployeeId = =>
     $.jStorage.get 'employeeId'
+    
+  exports.getDate = =>
+    Date.parse($('.app-punch-date').val())
 
   exports.setEmployeeId = (id) =>
     $.jStorage.set 'employeeId', id
@@ -8,7 +11,7 @@ namespace "PunchIt.Session", (exports) ->
 
 
   PunchIt.Session.baseURL = "https://punchitapi.atomicobject.com"
-  #PunchIt.Session.baseURL = "http://localhost:4568"
+ # PunchIt.Session.baseURL = "http://localhost:4568"
   # localhost
   exports.onAuthenticated = (callback) =>
     throw "PunchIt.Session.BaseURL is NOT set" unless PunchIt.Session.baseURL
@@ -31,10 +34,6 @@ namespace "PunchIt.Session", (exports) ->
       holiday = 17
 
       $.jStorage.set('pinnedProjectIds', [general, lunch, vacation, holiday])
-
-    unless $.jStorage.get('employeeId')
-      dustinsId = 31
-      $.jStorage.set 'employeeId', dustinsId
 
   exports.pinProjectId = (id) =>
     projects = $.jStorage.get('pinnedProjectIds')

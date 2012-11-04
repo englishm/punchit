@@ -8,6 +8,9 @@ title: Punch Alpha
       .row-fluid
         %span.brand Punch Alpha
         .span4#app-week-summary(style="padding-top: 6px;")
+          %span.badge.app-hours-total.pull-right
+          %span.badge.badge-success.app-hours-billable.pull-right
+          %span.badge.badge-warning.app-hours-non-billable.pull-right
           .progress
             .bar.bar-success.app-hours-billable
             .bar.bar-warning.app-hours-non-billable
@@ -33,9 +36,11 @@ title: Punch Alpha
     .span5
       .navigation.span5(data-spy="affix")
         #app-date
-          %input.input-small.visible-phone.app-punch-date{value: Date.today, type: "input"}
+          %input.input-small.visible-phone.app-punch-date{value: Date.today(), type: "input"}
           .hidden-phone
             #app-datepicker
+            .btn.btn-mini.app-today
+              Today
         %br
         .alert#app-new-punch
           %p.app-project 
@@ -75,7 +80,7 @@ title: Punch Alpha
         .punches.app-punches
           %table.table
             - times = []
-            - 24.times do |time|
+            - 25.times do |time|
               - if time == 0
                 - times << {name: "midnight", hour: time}
               - elsif time == 12 
@@ -107,6 +112,6 @@ title: Punch Alpha
     %h3 Atom Picker
     %button.close(data-dismiss="modal") x
   .modal-body
-    %input.input-large.app-all-employees-typeahead(type="hidden" placeholder="AO Employees")
+    %input.input-large.app-all-employees-typeahead(type="text" placeholder="What's Yer Name?")
   .modal-footer
     %button.btn(data-dismiss="modal") Close

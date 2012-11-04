@@ -7,15 +7,8 @@ namespace "PunchIt.Views", (exports) ->
       @startTime = null
       @stopTime = null
 
-    addEditablePunch: ($punchEl, start, stop) =>
-      padding = 2
-      ticksInHour = 4
+    addEditablePunch: ($punchEl) =>
       tickHeight = 38
-
-      ticks = (stop - start) / .25
-
-      $punchEl.css('top', "#{padding + ((start * ticksInHour) * tickHeight)}px")
-      $punchEl.css("height", "#{(tickHeight * ticks) - 3*padding}px")
       @.$('.app-punches').append($punchEl)
 
       $punchEl.resizable

@@ -58,6 +58,8 @@ namespace "PunchIt.Views", (exports) ->
 
     render: =>
       @$el.attr('rel', 'tooltip')
+      @$el.attr('duration', @model.duration())
+      @$el.attr('start', @model.get('start'))
       @$el.html("<p>
           <span class='punch-controls pull-right'>
             <i class='app-remove icon-remove icon-white'></i>
