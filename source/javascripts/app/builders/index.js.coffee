@@ -35,6 +35,9 @@ $ =>
       allProjectsView = new PunchIt.Views.AllProjects(projects: projectsCollection, el: $('#app-all-projects'))
       allProjectsView.render()
 
+      projectsRecentView = new PunchIt.Views.ProjectsRecent(collection: punchesCollection, el: $('#app-recent-projects'))
+      projectsRecentView.render()
+
       caldendarView = new PunchIt.Views.Calendar(el: '#app-calendar')
       punchesCollection = new PunchIt.Collections.Punches([], projects: projectsCollection)
       punchesView = new PunchIt.Views.Punches(projects: projectsCollection, calendarView: caldendarView, collection: punchesCollection)

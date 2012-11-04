@@ -6,11 +6,6 @@ namespace "PunchIt.Views", (exports) ->
       @collection.on("remove", @refresh)
       @collection.on("add", @refresh)
 
-      sunday = '2012-10-28'
-      saturday = '2012-11-03'
-      @collection.url = "/employees/#{@employeeId()}/punches?date.gte=#{sunday}&date.lte=#{saturday}"
-      @collection.loadPunches()
-
     refresh: =>
       billable = @collection.billable()
       nonbillable = @collection.nonbillable()
