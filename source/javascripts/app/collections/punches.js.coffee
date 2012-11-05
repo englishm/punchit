@@ -1,7 +1,7 @@
-namespace "PunchIt.Collections", (exports) ->
+namespace "Punch.Collections", (exports) ->
   class exports.Punches extends Backbone.Collection
-    model: PunchIt.Models.Punch
-    url: "#{PunchIt.Session.baseURL}/punches"
+    model: Punch.Models.Punch
+    url: "#{Punch.Session.baseURL}/punches"
 
     initialize: =>
       @projects =  arguments[1].projects

@@ -1,3 +1,3 @@
-namespace "PunchIt.Collections", (exports) ->
+namespace "Punch.Collections", (exports) ->
   class exports.Stories extends Backbone.Collection
-    model: PunchIt.Models.Story
+    model: Punch.Models.Story

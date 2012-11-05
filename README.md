@@ -1,4 +1,4 @@
-PunchIt!
+Punch!
 ========
 
 A new, API-based, punchit web interface.

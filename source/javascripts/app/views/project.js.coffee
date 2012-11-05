@@ -1,4 +1,4 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.Project extends Backbone.View
     tagName: "li"
     className: "project"
@@ -19,10 +19,10 @@ namespace "PunchIt.Views", (exports) ->
         $(@el).on('click', => @projectClicked())
 
     storyPicked: (event) =>
-      PunchIt.Events.trigger "punchableActivated", @model, @model.stories.get($(event.currentTarget).val())
+      Punch.Events.trigger "punchableActivated", @model, @model.stories.get($(event.currentTarget).val())
 
     projectClicked: =>
-      PunchIt.Events.trigger "punchableActivated", @model, null
+      Punch.Events.trigger "punchableActivated", @model, null
 
     populateStories: =>
       data = []

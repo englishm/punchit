@@ -1,9 +1,9 @@
-namespace "PunchIt.Models", (exports) ->
+namespace "Punch.Models", (exports) ->
   class exports.Project extends Backbone.Model
     initialize: =>
       @customer = @collection.getCustomer(@get('customerId'))
-      @stories = new PunchIt.Collections.Stories()
-      @stories.url = "#{PunchIt.Session.baseURL}#{@get('storiesUrl')}"
+      @stories = new Punch.Collections.Stories()
+      @stories.url = "#{Punch.Session.baseURL}#{@get('storiesUrl')}"
       @stories.bind("reset", => @trigger("storiesLoaded"))
 
     stories: =>

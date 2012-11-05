@@ -1,4 +1,4 @@
-namespace "PunchIt.Models", (exports) ->
+namespace "Punch.Models", (exports) ->
   class exports.Story extends Backbone.Model
     completed: =>
       @get('percent_done') == 100

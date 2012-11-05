@@ -1,4 +1,4 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.Calendar extends Backbone.View
     initialize: =>
       $('.app-time').on("mousedown", @mousedown).on("mouseup", @mouseup)
@@ -37,13 +37,13 @@ namespace "PunchIt.Views", (exports) ->
       if @startTime == @stopTime
         #click this might need to add +25 to the star
         #
-        PunchIt.Events.trigger "startStopChanged", @startTime, @startTime + .25
+        Punch.Events.trigger "startStopChanged", @startTime, @startTime + .25
       else if @startTime > @stopTime
         #click drag up
-        PunchIt.Events.trigger "startStopChanged", @stopTime, @startTime + .25
+        Punch.Events.trigger "startStopChanged", @stopTime, @startTime + .25
       else
         #click drag down 
-        PunchIt.Events.trigger "startStopChanged", @startTime, @stopTime + .25
+        Punch.Events.trigger "startStopChanged", @startTime, @stopTime + .25
 
       @startTime = null
       @stopTime = null

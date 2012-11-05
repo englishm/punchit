@@ -1,4 +1,4 @@
-namespace "PunchIt.Collections", (exports) ->
+namespace "Punch.Collections", (exports) ->
   class exports.Employees extends Backbone.Collection
-    model: PunchIt.Models.Employee
-    url: "#{PunchIt.Session.baseURL}/employees?active=true"
+    model: Punch.Models.Employee
+    url: "#{Punch.Session.baseURL}/employees?active=true"

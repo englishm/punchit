@@ -1,4 +1,4 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.Punch extends Backbone.View
     tagName: "span"
     className: "label punch app-punch"
@@ -73,7 +73,7 @@ namespace "PunchIt.Views", (exports) ->
         <input type='text' class='app-notes notes' placeholder='No Notes' />")
 
       @.$('.app-info').on 'click', =>
-        PunchIt.Events.trigger("punchableActivated", @project(), @story())
+        Punch.Events.trigger("punchableActivated", @project(), @story())
 
       @.$('.app-remove').on 'click', =>
         @model.destroy()

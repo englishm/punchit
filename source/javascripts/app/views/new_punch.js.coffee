@@ -1,15 +1,15 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.NewPunch extends Backbone.View
     initialize: =>
-      PunchIt.Events.on "punchableActivated", @punachableActivated
-      PunchIt.Events.on "startStopChanged", @timePicked
+      Punch.Events.on "punchableActivated", @punachableActivated
+      Punch.Events.on "startStopChanged", @timePicked
 
       @datePicker = $('.app-punch-date')
       @.$('.app-project').on 'click', @pinProject
 
     pinProject: =>
       if @project
-        PunchIt.Session.pinProjectId @project.id
+        Punch.Session.pinProjectId @project.id
       
     timePicked: (start, stop) =>
       return unless @ready()
@@ -49,7 +49,7 @@ namespace "PunchIt.Views", (exports) ->
 
     # createDefault: =>
 
-    #   punch = new PunchIt.Models.Punch(attributes)
+    #   punch = new Punch.Models.Punch(attributes)
     #   if arguments and arguments[0] and arguments[0].setDefaults
     #     lastpunch = @punchescollection.max (punch) =>
     #       punch.get('stop')
@@ -73,11 +73,11 @@ namespace "PunchIt.Views", (exports) ->
     #       return false
     #     # else if event.which == 13
     #     # Not sure what to do with enter
-    #     #   PunchIt.Events.trigger "savePunch"
+    #     #   Punch.Events.trigger "savePunch"
 
     #   #this should be moved to a DAY view that doesn't exist or punches?
     #   $('.app-time').on 'click', (event) =>
     #     if event.altKey
-    #       PunchIt.Events.trigger "startTime", $(event.currentTarget).data('time')
+    #       Punch.Events.trigger "startTime", $(event.currentTarget).data('time')
     #     else
-    #       PunchIt.Events.trigger "stopTime", $(event.currentTarget).data('time')
+    #       Punch.Events.trigger "stopTime", $(event.currentTarget).data('time')

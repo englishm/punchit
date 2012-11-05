@@ -1,4 +1,4 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.WeekSummary extends Backbone.View
     initialize: =>
       @collection.on("change", @refresh)
@@ -21,4 +21,4 @@ namespace "PunchIt.Views", (exports) ->
       @refresh()
 
     employeeId: =>
-      PunchIt.Session.getEmployeeId()
+      Punch.Session.getEmployeeId()

@@ -1,4 +1,4 @@
-namespace "PunchIt.Models", (exports) ->
+namespace "Punch.Models", (exports) ->
   class exports.Punch extends Backbone.Model
     initialize: =>
       @project = null

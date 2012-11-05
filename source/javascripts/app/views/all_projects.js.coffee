@@ -1,4 +1,4 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.AllProjects extends Backbone.View
     initialize: ({@projects}) =>
       @$('.app-all-projects-typeahead').on('change', @projectPicked)
@@ -18,9 +18,9 @@ namespace "PunchIt.Views", (exports) ->
       project = @projects.get $(event.currentTarget).val()
       @$('.app-all-projects-typeahead').val()
 
-      PunchIt.Events.trigger "punchableActivated", project
+      Punch.Events.trigger "punchableActivated", project
 
-      projectView = new PunchIt.Views.Project(model: project)
+      projectView = new Punch.Views.Project(model: project)
       @$('.app-stories-placeholder').append("<li class='divider'></li>")
       @$('.app-stories-placeholder').append("<li class='nav-header'>#{project.fullName()} Stories</li>") if project.hasStories()
       @$('.app-stories-placeholder').append(projectView.el)

@@ -32,6 +32,7 @@ title: Punch Alpha
                 %li
                   %a(href="http://punchit.atomicobject.com/") Old Punchit
 .container-fluid
+
   .row-fluid 
     .span5
       .navigation.span5(data-spy="affix")
@@ -107,10 +108,25 @@ title: Punch Alpha
                         %span.muted
                           45
       
+#app-alert-modal.modal.hide.fade
+  .modal-header
+    %button.close(data-dismiss="modal") x
+    %h3 Not Authorized
+  .modal-body
+    You have not authenticated with the Punchit API.are not authenticated.  
+    Please authenticate first and then refresh.
+  .modal-footer
+    %a(target="_blank" href="https://punchitapi.atomicobject.com/blank.png") 
+      %button.btn.btn-primary Authenticate Here
+    or
+    %a(href="http://www.youtube.com/watch?v=r0E-0ntoNWo")
+      %button.btn Forget it, get me something cute.
+
+
 #app-employees-modal.modal.hide.fade
   .modal-header
-    %h3 Atom Picker
     %button.close(data-dismiss="modal") x
+    %h3 Atom Picker
   .modal-body
     %input.input-large.app-all-employees-typeahead(type="text" placeholder="What's Yer Name?")
   .modal-footer

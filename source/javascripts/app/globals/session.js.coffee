@@ -1,4 +1,7 @@
-namespace "PunchIt.Session", (exports) ->
+namespace "Punch.Session", (exports) ->
+  Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
+#  Punch.Session.baseURL = "http://localhost:4568"
+
   exports.getEmployeeId = =>
     $.jStorage.get 'employeeId'
     
@@ -7,14 +10,10 @@ namespace "PunchIt.Session", (exports) ->
 
   exports.setEmployeeId = (id) =>
     $.jStorage.set 'employeeId', id
-    PunchIt.Events.trigger('changed:employeeId', id)
+    Punch.Events.trigger('changed:employeeId', id)
 
-
-  PunchIt.Session.baseURL = "https://punchitapi.atomicobject.com"
- # PunchIt.Session.baseURL = "http://localhost:4568"
-  # localhost
   exports.onAuthenticated = (callback) =>
-    throw "PunchIt.Session.BaseURL is NOT set" unless PunchIt.Session.baseURL
+    throw "Punch.Session.BaseURL is NOT set" unless Punch.Session.baseURL
     if exports.baseURL == "http://localhost:4568"
       callback()
     else
@@ -22,8 +21,8 @@ namespace "PunchIt.Session", (exports) ->
         options.xhrFields =
           withCredentials: true
 
-      $("<img id='punchitapi-blank-img' src='" + PunchIt.Session.baseURL + "/blank.png?" + Number(new Date()) + "'/>").load(callback).error( =>
-        log("You are not authenticated @ punchitapi.atomicobject.com")
+      $("<img id='punchitapi-blank-img' src='" + Punch.Session.baseURL + "/blank.png?" + Number(new Date()) + "'/>").load(callback).error( =>
+        $("#app-alert-modal").modal()
       ).appendTo($('body'))
  
   exports.bootstrap = =>

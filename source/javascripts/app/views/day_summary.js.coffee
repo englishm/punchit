@@ -1,4 +1,4 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.DaySummary extends Backbone.View
     initialize: =>
       @collection.on("change", @refresh)
@@ -7,8 +7,8 @@ namespace "PunchIt.Views", (exports) ->
       @collection.on("add", @refresh)
 
     refresh: =>
-      billable = @collection.billable(PunchIt.Session.getDate())
-      nonbillable = @collection.nonbillable(PunchIt.Session.getDate())
+      billable = @collection.billable(Punch.Session.getDate())
+      nonbillable = @collection.nonbillable(Punch.Session.getDate())
 
       @.$('.app-hours-billable').text(billable)
       @.$('.app-hours-non-billable').text(nonbillable)

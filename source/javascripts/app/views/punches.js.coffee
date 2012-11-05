@@ -1,11 +1,11 @@
-namespace "PunchIt.Views", (exports) ->
+namespace "Punch.Views", (exports) ->
   class exports.Punches extends Backbone.View
     initialize: ({@projects, @calendarView}) =>
       @collection.url = "/employees/#{@employeeId()}/punches"
 
       #this shoudl go somewhere else and use Events
       @datePicker = $('.app-punch-date')
-      PunchIt.Events.on("changed:employeeId", @updatePunches)
+      Punch.Events.on("changed:employeeId", @updatePunches)
 
       @collection.on('reset', @refresh)
       @collection.on('add', @updateViews)
@@ -22,20 +22,20 @@ namespace "PunchIt.Views", (exports) ->
         weekStart = Date.parse(@datePicker.val()).add(-pickedDate.getDay()).days()
         weekEnd = Date.parse(@datePicker.val()).add((7-pickedDate.getDay())).days()
 
-        @collection.url = "#{PunchIt.Session.baseURL}/employees/#{@employeeId()}/punches?date.gte=#{weekStart.toString 'yyyy-MM-dd'}&date.lte=#{weekEnd.toString 'yyyy-MM-dd'}"
+        @collection.url = "#{Punch.Session.baseURL}/employees/#{@employeeId()}/punches?date.gte=#{weekStart.toString 'yyyy-MM-dd'}&date.lte=#{weekEnd.toString 'yyyy-MM-dd'}"
         @collection.loadPunches()
-        @collection.url = "#{PunchIt.Session.baseURL}/employees/#{@employeeId()}/punches"
+        @collection.url = "#{Punch.Session.baseURL}/employees/#{@employeeId()}/punches"
 
     employeeId: =>
-      PunchIt.Session.getEmployeeId()
+      Punch.Session.getEmployeeId()
 
     addModel: (model) =>
       @collection.add model
 
     updateViews: =>
-      @collection.each_for_date PunchIt.Session.getDate(), (punch) =>
+      @collection.each_for_date Punch.Session.getDate(), (punch) =>
         unless @views[punch.cid]
-          @views[punch.cid] = new PunchIt.Views.Punch(model: punch, projects: @projects)
+          @views[punch.cid] = new Punch.Views.Punch(model: punch, projects: @projects)
           @views[punch.cid].render()
 
         start = punch.get('start')
