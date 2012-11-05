@@ -1,7 +1,6 @@
 namespace "Punch.Views", (exports) ->
   class exports.ProjectsRecent extends Backbone.View
     initialize: ({@projects}) =>
-      console.log @
       #@collection.on 'reset', @refresh
 
     refresh: =>

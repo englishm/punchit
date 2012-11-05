@@ -73,7 +73,7 @@ namespace "Punch.Views", (exports) ->
         <input type='text' class='app-notes notes' placeholder='No Notes' />")
 
       @.$('.app-info').on 'click', =>
-        Punch.Events.trigger("punchableActivated", @project(), @story())
+        window.Punch.Events.trigger("punchableActivated", @project(), @story())
 
       @.$('.app-remove').on 'click', =>
         @model.destroy()

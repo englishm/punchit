@@ -21,8 +21,6 @@ namespace "Punch.Views", (exports) ->
         pickedDate =  Date.parse(@datePicker.val())
         weekStart = Date.parse(@datePicker.val()).add(-pickedDate.getDay()).days()
         weekEnd = Date.parse(@datePicker.val()).add((6-pickedDate.getDay())).days()
-        console.log weekStart
-        console.log weekEnd
 
         @collection.url = "#{Punch.Session.baseURL}/employees/#{@employeeId()}/punches?date.gte=#{weekStart.toString 'yyyy-MM-dd'}&date.lte=#{weekEnd.toString 'yyyy-MM-dd'}"
         @collection.loadPunches()
