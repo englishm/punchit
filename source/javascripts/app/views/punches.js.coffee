@@ -19,8 +19,12 @@ namespace "Punch.Views", (exports) ->
     updatePunches: =>
       if @employeeId()
         pickedDate =  Date.parse(@datePicker.val())
-        weekStart = Date.parse(@datePicker.val()).add(-pickedDate.getDay()).days()
-        weekEnd = Date.parse(@datePicker.val()).add((6-pickedDate.getDay())).days()
+        if pickedDate.getDay() == 0
+          weekStart = Date.parse(@datePicker.val()).add(-7).days()
+          weekEnd = Date.parse(@datePicker.val()).add((pickedDate.getDay())).days()
+        else
+          weekStart = Date.parse(@datePicker.val()).add(1-pickedDate.getDay()).days()
+          weekEnd = Date.parse(@datePicker.val()).add((7-pickedDate.getDay())).days()
 
         @collection.url = "#{Punch.Session.baseURL}/employees/#{@employeeId()}/punches?date.gte=#{weekStart.toString 'yyyy-MM-dd'}&date.lte=#{weekEnd.toString 'yyyy-MM-dd'}"
         @collection.loadPunches()
