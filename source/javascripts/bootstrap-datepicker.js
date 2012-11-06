@@ -25,7 +25,7 @@
 		this.element = $(element);
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
-							.appendTo('#app-datepicker')
+							.appendTo('body')
 							.on({
 								click: $.proxy(this.click, this),
 								mousedown: $.proxy(this.mousedown, this)
@@ -143,11 +143,11 @@
 		},
 		
 		place: function(){
-			// var offset = this.component ? this.component.offset() : this.element.offset();
-			// this.picker.css({
-			// 	top: offset.top + this.height,
-			// 	left: offset.left
-			// });
+			var offset = this.component ? this.component.offset() : this.element.offset();
+			this.picker.css({
+				top: offset.top + this.height,
+				left: offset.left
+			});
 		},
 		
 		update: function(newDate){
@@ -430,7 +430,7 @@
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
 	};
-	DPGlobal.template = '<div class="datepicker">'+
+	DPGlobal.template = '<div class="datepicker dropdown-menu">'+
 							'<div class="datepicker-days">'+
 								'<table class=" table-condensed">'+
 									DPGlobal.headTemplate+
