@@ -51,13 +51,15 @@ $ =>
 
       caldendarView = new Punch.Views.Calendar(el: '#app-calendar')
       punchesCollection = new Punch.Collections.Punches([], projects: projectsCollection)
+
+      daySummary = new Punch.Views.DaySummary(collection: punchesCollection, el: $('#app-day-summary'))
+      weekSummary = new Punch.Views.WeekSummary(collection: punchesCollection, el: $('#app-week-summary'))
+      weekSummary.render()
+
       punchesView = new Punch.Views.Punches
         collection: punchesCollection
         projects: projectsCollection
         calendarView: caldendarView
-
-      daySummary = new Punch.Views.DaySummary(collection: punchesCollection, el: $('#app-day-summary'))
-      weekSummary = new Punch.Views.WeekSummary(collection: punchesCollection, el: $('#app-week-summary'))
 
       newPunchView = new Punch.Views.NewPunch(el: $('#app-new-punch'), collection: punchesCollection)
 
