@@ -3,13 +3,13 @@ namespace "Punch.Views", (exports) ->
     initialize: ({@projects, @calendarView}) =>
       @collection.url = "/employees/#{@employeeId()}/punches"
 
-      #this shoudl go somewhere else and use Events
-      @datePicker = $('.app-punch-date')
       Punch.Events.on("changed:employeeId", @updatePunches)
 
       @collection.on('reset', @refresh)
       @collection.on('add', @updateViews)
-      @datePicker.on('changeDate', @updatePunches)
+      
+      #this should use events
+      $('.app-punch-date').on('changeDate', @updatePunches)
 
       @views = {}
       @updatePunches()
@@ -18,13 +18,13 @@ namespace "Punch.Views", (exports) ->
 
     updatePunches: =>
       if @employeeId()
-        pickedDate =  Date.parse(@datePicker.val())
+        pickedDate =  Punch.Session.getDate()
         if pickedDate.getDay() == 0
-          weekStart = Date.parse(@datePicker.val()).add(-7).days()
-          weekEnd = Date.parse(@datePicker.val()).add((pickedDate.getDay())).days()
+          weekStart = Punch.Session.getDate().add(-7).days()
+          weekEnd = Punch.Session.getDate().add((pickedDate.getDay())).days()
         else
-          weekStart = Date.parse(@datePicker.val()).add(1-pickedDate.getDay()).days()
-          weekEnd = Date.parse(@datePicker.val()).add((7-pickedDate.getDay())).days()
+          weekStart = Punch.Session.getDate().add(1-pickedDate.getDay()).days()
+          weekEnd = Punch.Session.getDate().add((7-pickedDate.getDay())).days()
 
         @collection.url = "#{Punch.Session.baseURL}/employees/#{@employeeId()}/punches?date.gte=#{weekStart.toString 'yyyy-MM-dd'}&date.lte=#{weekEnd.toString 'yyyy-MM-dd'}"
         @collection.loadPunches()
@@ -33,18 +33,19 @@ namespace "Punch.Views", (exports) ->
     employeeId: =>
       Punch.Session.getEmployeeId()
 
-    addModel: (model) =>
-      @collection.add model
-
     updateViews: =>
-      @collection.each_for_date Punch.Session.getDate(), (punch) =>
+      @collection.each (punch) =>
         unless @views[punch.cid]
           @views[punch.cid] = new Punch.Views.Punch(model: punch, projects: @projects)
           @views[punch.cid].render()
 
-        start = punch.get('start')
-        stop = punch.get('stop')
+      @collection.each_for_date Punch.Session.getDate(), (punch) =>
+        console.log "got a editable punch #{punch.get('date')}"
         @calendarView.addEditablePunch($(@views[punch.cid].el))
+
+      @collection.each_for_date Punch.Session.getDate().add(-1), (punch) =>
+        console.log "got a noneditable punch #{punch.get('date')}"
+        @calendarView.addNonEditablePunch($(@views[punch.cid].el))
 
       #tell all the projects to get their stories so we can assume a project has a story
       _(@collection.pluck('project_id')).uniq (id) =>

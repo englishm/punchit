@@ -1,12 +1,15 @@
 namespace "Punch.Session", (exports) ->
-  Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
-#  Punch.Session.baseURL = "http://localhost:4568"
+  #  Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
+  Punch.Session.baseURL = "http://localhost:4568"
 
   exports.getEmployeeId = =>
     $.jStorage.get 'employeeId'
     
   exports.getDate = =>
     Date.parse($('.app-punch-date').val())
+
+  exports.getDateAsString = =>
+    Punch.Session.getDate().toString 'yyyy-MM-dd'
 
   exports.setEmployeeId = (id) =>
     $.jStorage.set 'employeeId', id

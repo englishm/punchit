@@ -4,7 +4,6 @@ namespace "Punch.Views", (exports) ->
       Punch.Events.on "punchableActivated", @punachableActivated
       Punch.Events.on "startStopChanged", @timePicked
 
-      @datePicker = $('.app-punch-date')
       @.$('.app-project').on 'click', @pinProject
 
     pinProject: =>
@@ -16,7 +15,7 @@ namespace "Punch.Views", (exports) ->
       punchAttributes =
         project_id: @project.id
         story_id: @story.id if @story
-        date: @datePicker.val()
+        date: Punch.Session.getDateAsString()
         start: start
         stop: stop
 
@@ -34,6 +33,7 @@ namespace "Punch.Views", (exports) ->
         @$('.app-project').html("
           <span class='controls pull-right'>
             <i class='icon-heart'></i>
+            <i class='app-story icon-plus'></i>
             <i class='icon-globe'></i>
           </span> #{@project.fullName()}")
         if @story
@@ -41,7 +41,15 @@ namespace "Punch.Views", (exports) ->
         else
           @.$('.app-story').text('')
       else
-        @.$('.app-project').text('')
+        if @project
+          @$('.app-project').html("
+            <span class='controls pull-right'>
+              <i class='app-pin icon-heart'></i>
+              <i class='app-story icon-plus'></i>
+              <i class='app-url icon-globe'></i>
+            </span> #{@project.fullName()}")
+        else
+          @.$('.app-project').text('')
         @.$('.app-story').text('')
 
     ready: =>

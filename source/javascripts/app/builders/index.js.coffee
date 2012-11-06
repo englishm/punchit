@@ -8,7 +8,8 @@ $ =>
 
     #date finder where should this go?
     #$('.app-punch-date').datepicker()
-    $('.app-punch-date').datepicker('show')
+    $('.app-punch-date').datepicker()
+    $('.app-punch-date-second-column').datepicker()
     $('.app-today').on 'click', =>
       d = new Date
       $('.app-punch-date').datepicker('setValue', Date.today())
@@ -20,10 +21,7 @@ $ =>
     employeesCollection = new Punch.Collections.Employees()
     projectsCollection  = new Punch.Collections.Projects(customers: customersCollection)
 
-    projectsCollection.on "reset", =>
-      employeesCollection.fetch()
-
-    employeesCollection.on "reset", =>
+    bootstrap = =>
       employeesView = new Punch.Views.EmployeesModal
         collection: employeesCollection
         el: '#app-employees-modal'
@@ -50,6 +48,7 @@ $ =>
       projectsRecentView.render()
 
       caldendarView = new Punch.Views.Calendar(el: '#app-calendar')
+
       punchesCollection = new Punch.Collections.Punches([], projects: projectsCollection)
 
       daySummary = new Punch.Views.DaySummary(collection: punchesCollection, el: $('#app-day-summary'))
@@ -62,10 +61,13 @@ $ =>
         calendarView: caldendarView
 
       newPunchView = new Punch.Views.NewPunch(el: $('#app-new-punch'), collection: punchesCollection)
+      pinnedView = new Punch.Views.Pinned(el: $('#app-pinned'), projectsCollection: projectsCollection)
+      pinnedView.render()
 
-
-      #TODO: Move this to a pinned projects View/Collection that accpets new pins/removes pins
-      _($.jStorage.get('pinnedProjectIds')).each (id) =>
-        project = projectsCollection.get id
-        projectView = new Punch.Views.Project(model: project)
-        @$('#app-pinned-projects').append(projectView.el)
+    # get customers then projects then employees then app. not sure a better way to do this. 
+    customersCollection.fetch
+      success: =>
+        projectsCollection.fetch
+          success: =>
+            employeesCollection.fetch
+              success: bootstrap

@@ -6,7 +6,6 @@ title: Punch Alpha
   .navbar-inner
     .container-fluid
       .row-fluid
-        %span.brand Punch Alpha
         .span4#app-week-summary(style="padding-top: 6px;")
           %span.badge.app-hours-total.pull-right
           %span.badge.badge-success.app-hours-billable.pull-right
@@ -31,18 +30,39 @@ title: Punch Alpha
               %ul.dropdown-menu
                 %li
                   %a(href="http://punchit.atomicobject.com/") Old Punchit
-.container-fluid
+      .row-fluid
+        .span4
+          .btn-toolbar
+            .btn-group
+              - %w(M T W T F).each_with_index do |day, i|
+                .btn-success.btn-warning.btn-mini.btn= day
+              .btn-mini.btn &nbsp;
 
-  .row-fluid 
-    .span5
-      .navigation.span5(data-spy="affix")
-        #app-date
-          %input.input-small.visible-phone.app-punch-date{value: Date.today(), type: "input"}
-          .hidden-phone
-            #app-datepicker
+              - %w(M T W T F).each_with_index do |day, i|
+                - if i == 0
+                  .btn-mini.btn.text-warning= day
+                - elsif i == 1
+                  .btn-mini.btn.text-success= day
+                - elsif i == 2
+                  .btn-info.btn-mini.btn.text-info= day
+                - else
+                  .btn-mini.btn= day
+        .span4
+          #app-date
             .btn.btn-mini.app-today
               Today
-        %br
+            %input.input-small.app-punch-date{value: Date.today(), type: "input"}
+            #app-datepicker
+        .span4
+          #app-date-second-column
+            .btn.btn-mini.app-today
+              Today
+            %input.input-small.app-punch-date-second-column{value: Date.today(), type: "input"}
+            #app-datepicker
+.container-fluid
+  .row-fluid 
+    .span4
+      .navigation.span4(data-spy="affix")
         .alert#app-new-punch
           %p.app-project 
             %strong Pick a punchable to activate punching!
@@ -72,13 +92,17 @@ title: Punch Alpha
                   %li
                     %ul.app-stories-placeholder.nav.nav-list
             .tab-pane#pinned-projects
-              %ul#app-pinned-projects.nav.nav-list
+              #app-pinned
+                %ul.app-punchables
+                %ul.app-projects.nav.nav-list
             .tab-pane#recent-projects
               %ul.nav.nav-list#app-recent-projects
 
-    .span7
+    .span8
       #app-calendar.punch-table.calendar
-        .punches.app-punches
+        .punches
+          .app-non-editable-punches.pull-right
+          .app-editable-punches.pull-left
           %table.table
             - times = []
             - 25.times do |time|
@@ -110,17 +134,35 @@ title: Punch Alpha
       
 #app-alert-modal.modal.hide.fade
   .modal-header
-    %button.close(data-dismiss="modal") x
-    %h3 Not Authorized
+    %h3 ¡Alto!
   .modal-body
-    You have not authenticated with the Punchit API.are not authenticated.  
-    Please authenticate first and then refresh.
+    .alert.alert-error
+      %strong You have not authenticated with the PunchIt API.
+      %br
+      Please authenticate first and then refresh.
   .modal-footer
     %a(target="_blank" href="https://punchitapi.atomicobject.com/blank.png") 
-      %button.btn.btn-primary Authenticate Here
-    or
+      %button.btn.btn-primary Authenticate With PunchIt
+    OR
     %a(href="http://www.youtube.com/watch?v=r0E-0ntoNWo")
       %button.btn Forget it, get me something cute.
+    %br
+    %br
+    %small
+      After you have authenticated 
+      %a(href="/") 
+        please reload the page.
+
+#app-create-story-modal.modal.hide.fade
+  .modal-header
+    %h3.app-project-name
+      Project
+  .modal-body
+    Story Name
+  .modal-footer
+    %button.btn.btn-primary.app-create Create Story
+    %button.btn(data-dismiss="modal") Close
+
 
 
 #app-employees-modal.modal.hide.fade

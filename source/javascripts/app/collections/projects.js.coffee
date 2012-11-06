@@ -5,10 +5,6 @@ namespace "Punch.Collections", (exports) ->
 
     initialize: ({@customers}) =>
       @customers.on("reset", @loadUp)
-      @customers.fetch()
-
-    loadUp: =>
-      @fetch()
 
     getCustomer: (id) =>
       @customers.get(id)

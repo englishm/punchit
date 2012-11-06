@@ -8,9 +8,7 @@ namespace "Punch.Views", (exports) ->
 
     initialize: =>
       if @model.hasStories()
-        #$(@el).append("<li class='nav-header app-project'>#{@model.fullName()}</li>")
         $(@el).html('<input class="app-stories input-xxlarge" type="hidden" />')
-
         @model.on("storiesLoaded", @populateStories)
         @model.fetchStories()
         @$('.app-stories').on("change", @storyPicked)

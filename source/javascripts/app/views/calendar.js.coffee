@@ -7,9 +7,12 @@ namespace "Punch.Views", (exports) ->
       @startTime = null
       @stopTime = null
 
+    addNonEditablePunch: ($punchEl) =>
+      @.$('.app-non-editable-punches').append($punchEl)
+
     addEditablePunch: ($punchEl) =>
       tickHeight = 38
-      @.$('.app-punches').append($punchEl)
+      @.$('.app-editable-punches').append($punchEl)
 
       $punchEl.resizable
         autoHide: true
