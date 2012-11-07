@@ -27,30 +27,20 @@ namespace "Punch.Views", (exports) ->
       @refresh()
 
     refresh: =>
-      @$el.removeClass('alert-success')
+      @$el.removeClass('btn-success')
+
+      @.$('.app-project').text('')
+      @.$('.app-story').text('')
+
       if @ready()
-        @$el.addClass('alert-success')
-        @$('.app-project').html("
-          <span class='controls pull-right'>
-            <i class='icon-heart'></i>
-            <i class='app-story icon-plus'></i>
-            <i class='icon-globe'></i>
-          </span> #{@project.fullName()}")
+        @$el.addClass('btn-success')
+        @$('.app-project').text(@project.fullName())
         if @story
           @.$('.app-story').text(@story.fullName())
         else
           @.$('.app-story').text('')
-      else
-        if @project
-          @$('.app-project').html("
-            <span class='controls pull-right'>
-              <i class='app-pin icon-heart'></i>
-              <i class='app-story icon-plus'></i>
-              <i class='app-url icon-globe'></i>
-            </span> #{@project.fullName()}")
-        else
-          @.$('.app-project').text('')
-        @.$('.app-story').text('')
+      else if @project
+        @$('.app-project').text(@project.fullName())
 
     ready: =>
       (@project and !@project.hasStories()) or  (@project and @story)

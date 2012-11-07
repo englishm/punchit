@@ -1,5 +1,5 @@
 namespace "Punch.Session", (exports) ->
-  #  Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
+  #Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
   Punch.Session.baseURL = "http://localhost:4568"
 
   exports.getEmployeeId = =>

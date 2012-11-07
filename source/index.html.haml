@@ -6,69 +6,76 @@ title: Punch Alpha
   .navbar-inner
     .container-fluid
       .row-fluid
-        .span4#app-week-summary(style="padding-top: 6px;")
-          %span.badge.app-hours-total.pull-right
-          %span.badge.badge-success.app-hours-billable.pull-right
-          %span.badge.badge-warning.app-hours-non-billable.pull-right
-          .week-stats
-            .bar.bar-success.app-hours-billable
-            .bar.bar-warning.app-hours-non-billable
         .span4
-          %ul.nav.pull-right
-            %li#app-day-summary
-              %a
-                %span.badge.badge-success.app-hours-billable
-                %span.badge.badge-warning.app-hours-non-billable
-                %span.badge.app-hours-total
-            %li.app-employee
-              %a(data-toggle="modal" data-target="#app-employees-modal")
-                %i.icon-user
-                %span.app-name 
-            %li.dropdown
-              %a.dropdown-toggle(data-toggle="dropdown")
-                %i.icon-align-justify
-              %ul.dropdown-menu
-                %li
-                  %a(href="http://punchit.atomicobject.com/") Old Punchit
-      .row-fluid
-        .span4
-          .btn-toolbar
-            .btn-group
-              - %w(M T W T F).each_with_index do |day, i|
-                .btn-success.btn-warning.btn-mini.btn= day
-              .btn-mini.btn &nbsp;
-
-              - %w(M T W T F).each_with_index do |day, i|
-                - if i == 0
-                  .btn-mini.btn.text-warning= day
-                - elsif i == 1
-                  .btn-mini.btn.text-success= day
-                - elsif i == 2
-                  .btn-info.btn-mini.btn.text-info= day
-                - else
-                  .btn-mini.btn= day
-        .span4
-          #app-date
-            .btn.btn-mini.app-today
-              Today
-            %input.input-small.app-punch-date{value: Date.today(), type: "input"}
-            #app-datepicker
-        .span4
-          #app-date-second-column
-            .btn.btn-mini.app-today
-              Today
-            %input.input-small.app-punch-date-second-column{value: Date.today(), type: "input"}
-            #app-datepicker
+          .row
+            .span7.offset1
+              .btn-toolbar
+                .btn-group
+                  - %w(M T W T F).each_with_index do |day, i|
+                    - if i == 3
+                      .btn-mini.btn.btn-danger= day
+                    - else
+                      .btn-mini.btn= day
+                  .btn-mini.btn.disabled(style="width: 25%")
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                  - %w(M T W T F).each_with_index do |day, i|
+                    - if i == 0
+                      .btn-mini.btn= day
+                    - elsif i == 1
+                      .btn-mini.btn.active= day
+                    - else
+                      .btn-mini.btn= day
+          .row-fluid
+            .span12#app-week-summary
+              .week-stats
+        .span8
+          .row-fluid
+            .span4
+              %ul.nav
+                %li.app-employee
+                  %a(data-toggle="modal" data-target="#app-employees-modal")
+                    %i.icon-user
+                    %span.app-name 
+            .span6
+              .form-horizontal.pull-right(style="padding: 10px 15px;")
+                .control-group#app-date
+                  .control-label Active Date
+                  .controls
+                    %input.input-small.app-punch-date{value: Date.today(), type: "input"}
+                    %span#app-datepicker
+            .span2#app-day-summary
+              %span.badge.badge-success.app-hours-billable
+              %span.badge.badge-warning.app-hours-non-billable
+              %span.badge.badge-info.app-hours-total
+          .row-fluid
+            .span12
+              .btn-group
+                .btn.dropdown-toggle.btn-mini.btn-block#app-new-punch(data-toggle="dropdown" href="#")
+                  %span.app-project 
+                    %strong Pick a punchable to activate punching!
+                    %small Click the day calendar to place your punchable.
+                  %span.app-story
+                  %span.caret
+                %ul.dropdown-menu.pull-right
+                  %li
+                    %a
+                      %i.app-pin.icon-heart
+                      Pin Punchable
+                  %li
+                    %a
+                      %i.app-story.icon-plus
+                      Add Story
+                  %li
+                    %a
+                      %i.app-url.icon-globe
+                      Punchable URL
+                  
 .container-fluid
   .row-fluid 
     .span4
       .navigation.span4(data-spy="affix")
-        .alert#app-new-punch
-          %p.app-project 
-            %strong Pick a punchable to activate punching!
-          %p.app-story
-            %small Click the day calendar to place your punchable.
-        %br
         .tabbable
           %ul.nav.nav-pills
             %li.active

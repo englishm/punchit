@@ -18,7 +18,7 @@ body {
   .punch {
     position: absolute;
     left: 50px;
-    width: 50%;
+    width: 85%;
     opacity: .6;
 
     .punch-controls {
@@ -89,14 +89,20 @@ body {
   }
 }
 
+.datepicker.dropdown-menu { z-index: 1031; } /* to raise above the navigation bar */
+
+.navbar .btn, .navbar .btn-group {
+  margin-top: 0px;
+}
+
 .bullet { font: 10px sans-serif; }
 .bullet .marker { stroke: #000; stroke-width: 2px; }
 .bullet .tick line { stroke: #666; stroke-width: .5px; }
 .bullet .range.s0 { fill: #eee; }
 .bullet .range.s1 { fill: #ddd; }
 .bullet .range.s2 { fill: #ccc; }
-.bullet .measure.s0 { fill: #468847; }
-.bullet .measure.s1 { fill: #f89406; }
+.bullet .measure.s0 { fill: #f89406; }
+.bullet .measure.s1 { fill: #468847; }
 .bullet .title { font-size: 14px; font-weight: bold; }
 .bullet .subtitle { fill: #999; }
 
