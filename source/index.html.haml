@@ -8,25 +8,11 @@ title: Punch Alpha
       .row-fluid
         .span4
           .row
-            .span7.offset1
+            .span7.offset1#app-pay-peroid
               .btn-toolbar
                 .btn-group
-                  - %w(M T W T F).each_with_index do |day, i|
-                    - if i == 3
-                      .btn-mini.btn.btn-danger= day
-                    - else
-                      .btn-mini.btn= day
-                  .btn-mini.btn.disabled(style="width: 25%")
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                  - %w(M T W T F).each_with_index do |day, i|
-                    - if i == 0
-                      .btn-mini.btn= day
-                    - elsif i == 1
-                      .btn-mini.btn.active= day
-                    - else
-                      .btn-mini.btn= day
+                  - %w(M T W T F S S).each_with_index do |day, i|
+                    .app-day.btn-mini.btn(data-day="#{i+1}")= day
           .row-fluid
             .span12#app-week-summary
               .week-stats
@@ -113,18 +99,19 @@ title: Punch Alpha
           %table.table
             - times = []
             - 25.times do |time|
+              - classes = (time >= 8 && time < 17) ? 'work-day' : ''
               - if time == 0
-                - times << {name: "midnight", hour: time}
+                - times << {name: "midnight", hour: time, classes: classes}
               - elsif time == 12 
-                - times << {name: "noon", hour: time}
+                - times << {name: "noon", hour: time, classes: classes}
               - elsif time > 12
-                - times << {name: "#{time-12}pm", hour: time}
+                - times << {name: "#{time-12}pm", hour: time, classes: classes}
               - else
-                - times << {name: "#{time}am", hour: time}
+                - times << {name: "#{time}am", hour: time, classes: classes}
 
             - times.each do |time| 
               - %w(00 25 5 75).each do |minutes|
-                %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}"}
+                %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}", class: time[:classes]}
                   %td.span1{class: minutes == "00" ? "hour" : ""}
                     %small
                       - if minutes == "00"

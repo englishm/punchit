@@ -95,6 +95,8 @@ body {
   margin-top: 0px;
 }
 
+#app-calendar tr.work-day td { background-color: whiteSmoke; }
+
 .bullet { font: 10px sans-serif; }
 .bullet .marker { stroke: #000; stroke-width: 2px; }
 .bullet .tick line { stroke: #666; stroke-width: .5px; }

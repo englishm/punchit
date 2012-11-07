@@ -9,12 +9,6 @@ $ =>
     #date finder where should this go?
     #$('.app-punch-date').datepicker()
     $('.app-punch-date').datepicker()
-    $('.app-punch-date-second-column').datepicker()
-    $('.app-today').on 'click', =>
-      d = new Date
-      $('.app-punch-date').datepicker('setValue', Date.today())
-      $('.app-punch-date').trigger('changeDate')
-    #bootstrap tooltips
     $('.titled').tooltip()
 
     customersCollection = new Punch.Collections.Customers()
@@ -63,6 +57,8 @@ $ =>
       newPunchView = new Punch.Views.NewPunch(el: $('#app-new-punch'), collection: punchesCollection)
       pinnedView = new Punch.Views.Pinned(el: $('#app-pinned'), projectsCollection: projectsCollection)
       pinnedView.render()
+
+      payPeroidSummary = new Punch.Views.PayPeroidSummary(el: $('#app-pay-peroid'), collection: punchesCollection)
 
     # get customers then projects then employees then app. not sure a better way to do this. 
     customersCollection.fetch

@@ -22,8 +22,6 @@ namespace "Punch.Views", (exports) ->
           previous: 43
         ]).call(@chart)
 
-      # @.$('.badge.app-hours-billable').text(billable)
-      # @.$('.badge.app-hours-non-billable').text(nonbillable)
       @.$('.badge.app-hours-total').text(billable + nonbillable)
 
     render: =>
@@ -53,6 +51,3 @@ namespace "Punch.Views", (exports) ->
         .call(@chart)
 
       @refresh()
-
-    employeeId: =>
-      Punch.Session.getEmployeeId()
