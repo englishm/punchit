@@ -2,7 +2,7 @@ $ =>
   Punch.Session.onAuthenticated =>
     #TODO this should be based on 8am or current time
     # 5 per hour that it is
-    window.scrollTo(0,1000)
+    window.scrollTo(0,700)
 
     Punch.Session.bootstrap()
 

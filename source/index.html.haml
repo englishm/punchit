@@ -112,7 +112,7 @@ title: Punch Alpha
             - times.each do |time| 
               - %w(00 25 5 75).each do |minutes|
                 %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}", class: time[:classes]}
-                  %td.span1{class: minutes == "00" ? "hour" : ""}
+                  %td{class: minutes == "00" ? "hour" : ""}
                     %small
                       - if minutes == "00"
                         = time[:name]

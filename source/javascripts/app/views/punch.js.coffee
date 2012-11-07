@@ -40,6 +40,19 @@ namespace "Punch.Views", (exports) ->
       if @project()
         @project().getStory(@model.get('story_id'))
 
+    notesChanged: (event) =>
+      #TODO this should change and not count on the blur to be hooked up!
+      if (event.keyCode == 13)
+        @.$('.app-notes').blur()
+      else
+        true
+
+    saveNotes: =>
+      $notes = @.$('.app-notes')
+      @model.set(notes: $notes.val())
+      @save()
+      true
+
     refresh: =>
       @$el.removeClass("active label-default label-success label-info label-warning")
       @$el.addClass("label-#{@type()}")
@@ -60,17 +73,19 @@ namespace "Punch.Views", (exports) ->
       @$el.attr('rel', 'tooltip')
       @$el.attr('duration', @model.duration())
       @$el.attr('start', @model.get('start'))
-      @$el.html("<p>
-          <span class='punch-controls pull-right'>
-            <i class='app-remove icon-remove icon-white'></i>
-          </span>
-          <span class='app-info'>
-            <i class='icon-map-marker icon-white'></i>
-            <span class='app-project'></span>
-            <span class='app-story'></span>
-          </span>
-        </p>
-        <input type='text' class='app-notes notes' placeholder='No Notes' />")
+      @$el.html("
+      <span class='punch-controls pull-right'>
+        <i class='app-remove icon-remove icon-white'></i>
+      </span>
+      <p>
+        <span class='app-info'>
+          <i class='icon-map-marker icon-white'></i>
+          <span class='app-project'></span>
+          <span class='app-story'></span>
+        </span>
+        <input type='text' class='app-notes notes' placeholder='No Notes' />
+      </p>")
+      
 
       @.$('.app-info').on 'click', =>
         window.Punch.Events.trigger("punchableActivated", @project(), @story())
@@ -78,7 +93,6 @@ namespace "Punch.Views", (exports) ->
       @.$('.app-remove').on 'click', =>
         @model.destroy()
 
-      @.$('.app-notes').on 'blur', =>
-        @model.set(notes: @.$('.app-notes').val())
-        @save()
+      @.$('.app-notes').on 'keypress', @notesChanged
+      @.$('.app-notes').on 'blur', @saveNotes
 

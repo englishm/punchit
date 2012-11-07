@@ -6,17 +6,17 @@ namespace "Punch.Views", (exports) ->
 
       @startTime = null
       @stopTime = null
+      @tickHeight = 22
 
     addNonEditablePunch: ($punchEl) =>
       @.$('.app-non-editable-punches').append($punchEl)
 
     addEditablePunch: ($punchEl) =>
-      tickHeight = 38
       @.$('.app-editable-punches').append($punchEl)
 
       $punchEl.resizable
         autoHide: true
-        grid: [ 0, tickHeight ]
+        grid: [ 0, @tickHeight ]
         handles: "s, n"
         start: @resizeStarted
         stop: @resizeStopped
@@ -24,10 +24,10 @@ namespace "Punch.Views", (exports) ->
     resizeStopped: (event, ui) =>
       pulledFromBottom = (ui.position.top == ui.originalPosition.top)
       if pulledFromBottom
-        quarterHourChanges = ((ui.element.height() - ui.originalSize.height) / 38)
+        quarterHourChanges = ((ui.element.height() - ui.originalSize.height) / @tickHeight)
         ui.element.trigger('stopChanged', (quarterHourChanges * .25))
       else
-        quarterHourChanges = ((ui.originalSize.height - ui.element.height()) / 38)
+        quarterHourChanges = ((ui.originalSize.height - ui.element.height()) / @tickHeight)
         ui.element.trigger('startChanged', (quarterHourChanges * .25))
 
     mousedown: (event) =>
@@ -39,7 +39,7 @@ namespace "Punch.Views", (exports) ->
 
       if @startTime == @stopTime
         #click this might need to add +25 to the star
-        #
+        
         Punch.Events.trigger "startStopChanged", @startTime, @startTime + .25
       else if @startTime > @stopTime
         #click drag up

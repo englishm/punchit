@@ -40,11 +40,9 @@ namespace "Punch.Views", (exports) ->
           @views[punch.cid].render()
 
       @collection.each_for_date Punch.Session.getDate(), (punch) =>
-        console.log "got a editable punch #{punch.get('date')}"
         @calendarView.addEditablePunch($(@views[punch.cid].el))
 
       @collection.each_for_date Punch.Session.getDate().add(-1), (punch) =>
-        console.log "got a noneditable punch #{punch.get('date')}"
         @calendarView.addNonEditablePunch($(@views[punch.cid].el))
 
       #tell all the projects to get their stories so we can assume a project has a story

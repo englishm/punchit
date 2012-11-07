@@ -17,15 +17,28 @@ body {
 
   .punch {
     position: absolute;
+    display: block-inline; 
     left: 50px;
     width: 85%;
-    opacity: .6;
+    /*opacity: .6;*/
+
+    background-color: rgba(30,87,153,.6);
+
+    &.label-success {
+      background-color: rgba(70,136,71,.6);
+    }
+
+    &.label-warning {
+      background-color: rgba(248,148,6,.6);
+    }
+
 
     .punch-controls {
       opacity: 0;
       transition: opacity .25s ease-in-out;
       -moz-transition: opacity .25s ease-in-out;
       -webkit-transition: opacity .25s ease-in-out;
+      z-index: 100;
     }
 
     &:hover {
@@ -42,15 +55,13 @@ body {
     .notes {
       border: none;
       font-size: 12px;
-      margin: 0px;
-      margin-top: -14px;
+      margin: -2px 0px 0px 4px;
       padding: 0px;
       background-color: rgba(0,0,0,0);
       color: white;
       outline: none;
       line-height: 12px;
       box-shadow: none;
-      width: 100%;
 
       &:focus {
         outline: none;
@@ -66,8 +77,15 @@ body {
 }
 
 .calendar {
-  td.hour {
-    border-top: 1px solid #333333;
+  th, td {
+    height: 22px;
+    line-height: 11px;
+    padding: 0px;
+    font-size: 12px;
+
+    &.hour {
+      border-top-color: #333333;
+    }
   }
 
   .punch {
