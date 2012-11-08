@@ -49,6 +49,9 @@ $ =>
       weekSummary = new Punch.Views.WeekSummary(collection: punchesCollection, el: $('#app-week-summary'))
       weekSummary.render()
 
+      payPeroidSummary = new Punch.Views.PayPeroidSummary(el: $('#app-pay-peroid'), collection: punchesCollection)
+      error = new Punch.Views.Error(el: $('#app-errors'))
+
       punchesView = new Punch.Views.Punches
         collection: punchesCollection
         projects: projectsCollection
@@ -58,7 +61,6 @@ $ =>
       pinnedView = new Punch.Views.Pinned(el: $('#app-pinned'), projectsCollection: projectsCollection)
       pinnedView.render()
 
-      payPeroidSummary = new Punch.Views.PayPeroidSummary(el: $('#app-pay-peroid'), collection: punchesCollection)
 
     # get customers then projects then employees then app. not sure a better way to do this. 
     customersCollection.fetch

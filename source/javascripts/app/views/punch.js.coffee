@@ -11,16 +11,17 @@ namespace "Punch.Views", (exports) ->
 
       @$el.on 'stopChanged', (event, time) =>
         newStop = @model.get('stop') + time
-        @model.set(stop: newStop)
-        @save()
+        @save(stop: newStop)
 
       @$el.on 'startChanged', (event, time) =>
         newstart = @model.get('start') + time
-        @model.set(start: newstart)
-        @save()
+        @save(start: newstart)
 
-    save: =>
-      @model.save()
+    save: (attributes) =>
+      @model.save attributes,
+        error: =>
+          @refresh()
+        wait: true
 
 
     type: =>
@@ -48,15 +49,18 @@ namespace "Punch.Views", (exports) ->
         true
 
     saveNotes: =>
-      $notes = @.$('.app-notes')
-      @model.set(notes: $notes.val())
-      @save()
+      @save(notes: @.$('.app-notes').val())
       true
 
     refresh: =>
       @$el.removeClass("active label-default label-success label-info label-warning")
       @$el.addClass("label-#{@type()}")
       @$el.addClass("active") if @model.active
+
+      @$el.attr('style', "")
+      @$el.attr('duration', @model.duration())
+      @$el.attr('start', @model.get('start'))
+
       @.$('.app-notes').val(@model.get('notes'))
 
       if @project()
@@ -71,8 +75,6 @@ namespace "Punch.Views", (exports) ->
 
     render: =>
       @$el.attr('rel', 'tooltip')
-      @$el.attr('duration', @model.duration())
-      @$el.attr('start', @model.get('start'))
       @$el.html("
       <span class='punch-controls pull-right'>
         <i class='app-remove icon-remove icon-white'></i>

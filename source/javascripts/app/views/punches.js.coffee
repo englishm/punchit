@@ -19,6 +19,11 @@ namespace "Punch.Views", (exports) ->
     updatePunches: =>
       if @employeeId()
         pickedDate =  Punch.Session.getDate()
+        hasDateLoaded = @collection.any (punch) => pickedDate.equals(Date.parse(punch.get('date')))
+
+        # if hasDateLoaded
+        #   @refresh()
+        # else
         if pickedDate.getDay() == 0
           weekStart = Punch.Session.getDate().add(-7).days()
           weekEnd = Punch.Session.getDate().add((pickedDate.getDay())).days()

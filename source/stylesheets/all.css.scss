@@ -7,10 +7,9 @@ body {
 }
 
 .typeahead {
-  /* to get these little shits to show in a modal */ 
+  /* to get employee dropdown to show in a modal */ 
   z-index:  1051 !important; 
 }
-
 
 .punches {
   position: relative;
@@ -81,10 +80,12 @@ body {
     height: 22px;
     line-height: 11px;
     padding: 0px;
-    font-size: 12px;
+    font-size: 10px;
 
     &.hour {
       border-top-color: #333333;
+      font-size: 12px;
+      font-weight: bold;
     }
   }
 

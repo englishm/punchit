@@ -1,6 +1,6 @@
 namespace "Punch.Session", (exports) ->
-  Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
-  #Punch.Session.baseURL = "http://localhost:4568"
+  #Punch.Session.baseURL = "https://punchitapi.atomicobject.com"
+  Punch.Session.baseURL = "http://localhost:4568"
 
   exports.getEmployeeId = =>
     $.jStorage.get 'employeeId'
@@ -25,7 +25,7 @@ namespace "Punch.Session", (exports) ->
           withCredentials: true
 
       $("<img id='punchitapi-blank-img' src='" + Punch.Session.baseURL + "/blank.png?" + Number(new Date()) + "'/>").load(callback).error( =>
-        $("#app-alert-modal").modal()
+        $("#app-no-authentication-modal").modal()
       ).appendTo($('body'))
  
   exports.bootstrap = =>

@@ -19,13 +19,7 @@ title: Punch Alpha
         .span8
           .row-fluid
             .span4
-              %ul.nav
-                %li.app-employee
-                  %a(data-toggle="modal" data-target="#app-employees-modal")
-                    %i.icon-user
-                    %span.app-name 
-            .span6
-              .form-horizontal.pull-right(style="padding: 10px 15px;")
+              .form-horizontal(style="padding: 10px 15px;")
                 .control-group#app-date
                   .control-label Active Date
                   .controls
@@ -35,6 +29,14 @@ title: Punch Alpha
               %span.badge.badge-success.app-hours-billable
               %span.badge.badge-warning.app-hours-non-billable
               %span.badge.badge-info.app-hours-total
+            .span3
+              #app-errors.alert.alert-error.hide
+            .span3
+              %ul.nav
+                %li.app-employee
+                  %a(data-toggle="modal" data-target="#app-employees-modal")
+                    %i.icon-user
+                    %span.app-name 
           .row-fluid
             .span12
               .btn-group
@@ -113,20 +115,20 @@ title: Punch Alpha
               - %w(00 25 5 75).each do |minutes|
                 %tr.app-time{"data-time" => "#{time[:hour]}.#{minutes}", class: time[:classes]}
                   %td{class: minutes == "00" ? "hour" : ""}
-                    %small
-                      - if minutes == "00"
-                        = time[:name]
-                      - elsif minutes == "25"
-                        %span.muted
-                          15
-                      - elsif minutes == "5"
-                        %span.muted
-                          30
-                      - elsif minutes == "75"
-                        %span.muted
-                          45
+                    - if minutes == "00"
+                      = time[:name]
+                    - elsif minutes == "25"
+                      %span.muted
+                        15
+                    - elsif minutes == "5"
+                      %span.muted
+                        30
+                    - elsif minutes == "75"
+                      %span.muted
+                        45
       
-#app-alert-modal.modal.hide.fade
+
+#app-no-authentication-modal.modal.hide.fade
   .modal-header
     %h3 ¡Alto!
   .modal-body

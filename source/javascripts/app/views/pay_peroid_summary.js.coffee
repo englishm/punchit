@@ -9,6 +9,8 @@ namespace "Punch.Views", (exports) ->
       @collection.on("remove", @refresh)
       @collection.on("add", @refresh)
 
+      $('.app-punch-date').on('changeDate', @refresh)
+
     dayClicked: (element) =>
       $clickedElement = $(element.currentTarget)
       $clickedElement.addClass('active')
