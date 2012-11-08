@@ -49,12 +49,12 @@ namespace "Punch.Collections", (exports) ->
 
       nonBillableTotal
 
-    nextStartTime: (date) =>
-      lastPunch = @max (punch) =>
-        punch.get('stop')
+    # nextStartTime: (date) =>
+    #   lastPunch = @max (punch) =>
+    #     punch.get('stop')
 
-      if lastPunch
-        lastPunch.get('stop')
-      else
-        9
+    #   if lastPunch
+    #     lastPunch.get('stop')
+    #   else
+    #     9
 

@@ -14,6 +14,7 @@ $ =>
     customersCollection = new Punch.Collections.Customers()
     employeesCollection = new Punch.Collections.Employees()
     projectsCollection  = new Punch.Collections.Projects(customers: customersCollection)
+    punchesCollection = new Punch.Collections.Punches([], projects: projectsCollection)
 
     bootstrap = =>
       employeesView = new Punch.Views.EmployeesModal
@@ -43,7 +44,6 @@ $ =>
 
       caldendarView = new Punch.Views.Calendar(el: '#app-calendar')
 
-      punchesCollection = new Punch.Collections.Punches([], projects: projectsCollection)
 
       daySummary = new Punch.Views.DaySummary(collection: punchesCollection, el: $('#app-day-summary'))
       weekSummary = new Punch.Views.WeekSummary(collection: punchesCollection, el: $('#app-week-summary'))
